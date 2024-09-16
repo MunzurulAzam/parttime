@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
+import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
 import '../../../presentations/screens/splash/splash_screen.dart';
 import '../../exceptions/route_exceptions.dart';
 part 'route_name.dart';
@@ -19,6 +20,10 @@ class AppRoutes {
       case RouteName.home:
         return MaterialPageRoute(
           builder: (_) => const HomeScreen(),
+        );
+      case RouteName.navigationScreen:
+        return MaterialPageRoute(
+          builder: (_) => const NavigationScreen(),
         );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;

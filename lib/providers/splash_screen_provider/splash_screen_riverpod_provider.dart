@@ -24,7 +24,7 @@ class SplashNotifier extends StateNotifier<void> {
   }
 
   void goNext() {
-    Navigator.of(appContext).pushNamedAndRemoveUntil(RouteName.home, (route) => false);
+    Navigator.of(appContext).pushNamedAndRemoveUntil(RouteName.navigationScreen, (route) => false);
   }
 }
 

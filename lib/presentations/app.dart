@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/theme/dark_theme.dart';
 import 'package:hotel_management/core/theme/light_theme.dart';
+import 'package:hotel_management/core/utils/size_config.dart';
 import 'package:hotel_management/providers/main_riverpod_provider.dart';
 import '../core/config/routes/app_routes.dart';
 import '../core/constants/strings/app_constants.dart';
@@ -24,6 +25,7 @@ class App extends ConsumerWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
+        SizeConfig().init(context);
         return MaterialApp(
           title: AppConstant.appName,
           debugShowCheckedModeBanner: false,
