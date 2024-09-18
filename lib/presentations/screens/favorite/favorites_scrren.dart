@@ -31,7 +31,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 shrinkWrap: true,
                 itemCount: 4,
                 itemBuilder: (context, index) {
-                  return Padding(
+                  return 
+                  Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: Container(
                       height: 250.h,
@@ -112,6 +113,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                       ),
                     ),
                   );
+                
                 },
               )
             ],
