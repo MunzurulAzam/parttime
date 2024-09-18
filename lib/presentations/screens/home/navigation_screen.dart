@@ -21,7 +21,7 @@ class NavigationScreen extends ConsumerWidget {
     final pages = [
       const HomeScreens(),   // index 0
       const TripScreens(), // index 1
-      const ChatScreen(), // index 2
+      // const ChatScreen(), // index 2
       const FavoriteScreen(), // index 3
       const ProfileScreen(), // index 3
     ];

@@ -44,6 +44,7 @@ class CarouselSliderWidget extends ConsumerWidget {
                         ))
                     .toList(),
                 options: CarouselOptions(
+                  viewportFraction: 1,
                   padEnds: false,
                   enableInfiniteScroll: false,
                   autoPlay: true,
