@@ -23,15 +23,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             'Profile',
             style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.settings,
-                color: AppColors.kPrimaryColor,
-              ),
-              onPressed: () {},
-            ),
-          ]),
+          // actions: [
+            // IconButton(
+            //   icon: const Icon(
+            //     Icons.settings,
+            //     color: AppColors.kPrimaryColor,
+            //   ),
+            //   onPressed: () {},
+            // ),
+          // ]
+
+      ),
       body: Column(
         children: [
           Padding(
@@ -81,50 +83,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
           CustomDividedBar(
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: const ProfileContents(
-              title: 'Driving License',
+              title: 'Contact Support',
             ),
           ),
+          // CustomDividedBar(
+          //   color: AppColors.kPrimaryColor.withOpacity(0.3),
+          // ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 18.w),
+          //   child: const ProfileContents(
+          //     title: 'Saved Payment Methods',
+          //   ),
+          // ),
           CustomDividedBar(
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: const ProfileContents(
-              title: 'Insurance',
+              title: 'Privacy policy',
             ),
           ),
           CustomDividedBar(
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: const ProfileContents(
-              title: 'Contract Support',
+              title: 'Log out',
             ),
-          ),
-          CustomDividedBar(
-            color: AppColors.kPrimaryColor.withOpacity(0.3),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: const ProfileContents(
-              title: 'Saved Payment Methods',
-            ),
-          ),
-          CustomDividedBar(
-            color: AppColors.kPrimaryColor.withOpacity(0.3),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: const ProfileContents(
-              title: 'Promotions',
-            ),
-          ),
-          CustomDividedBar(
-            color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
         ],
       ),
