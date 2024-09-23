@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/screens/home/widgets/carosole_slider.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
@@ -56,6 +57,9 @@ class _HomeScreensState extends State<HomeScreens> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   OnProcessButtonWidget(
+                    onDone: (_) {
+                      Navigator.pushNamed(context, RouteName.staterPage);
+                    },
                     contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
                     backgroundColor: AppColors.kPrimaryColor,
                     child: AutoSizeText('Exotic', style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor)),
