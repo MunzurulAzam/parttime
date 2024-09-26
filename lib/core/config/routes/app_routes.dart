@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_management/presentations/screens/auth/starter.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
 import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
 import 'package:hotel_management/presentations/screens/trip/trip_screen.dart';
@@ -28,7 +29,7 @@ class AppRoutes {
         );
       case RouteName.staterPage:
         return MaterialPageRoute(
-          builder: (_) => const TripScreens(),
+          builder: (_) => const StarterScreen(),
         );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
