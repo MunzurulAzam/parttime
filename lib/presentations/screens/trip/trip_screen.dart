@@ -29,7 +29,7 @@ class _TripScreensState extends State<TripScreens> {
            
               300.verticalSpace, 
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center, 
                 children: [
                   Align(
                     alignment: Alignment.center,
