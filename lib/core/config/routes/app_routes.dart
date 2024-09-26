@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_management/presentations/screens/auth/login_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/starter.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
 import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
@@ -30,6 +31,10 @@ class AppRoutes {
       case RouteName.staterPage:
         return MaterialPageRoute(
           builder: (_) => const StarterScreen(),
+        );
+      case RouteName.login:
+        return MaterialPageRoute(
+          builder: (_) => const LogInScreen(),
         );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
