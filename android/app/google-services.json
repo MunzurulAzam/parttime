@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "906898398200",
+    "project_id": "vacation-villa-rental",
+    "storage_bucket": "vacation-villa-rental.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906898398200:android:dd5e30300282467d64d40d",
+        "android_client_info": {
+          "package_name": "com.dev.hotel.hotel_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906898398200-bc9d3i2csodut8jcki11rqpl4si4cktf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev.hotel.hotel_management",
+            "certificate_hash": "4bc0e36dacc82330a08aafd22b0c40f55b2579b2"
+          }
+        },
+        {
+          "client_id": "906898398200-m7vb30ugt25u8toqposgvma2pl42utjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWAyi7Y9d02Xh9SZtY8RM45cvLX9o8Q-A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906898398200-m7vb30ugt25u8toqposgvma2pl42utjg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "906898398200-16ea23pgjsqpakk3p4qvjmco5amlc0bb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.hotel.hotelManagement"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
