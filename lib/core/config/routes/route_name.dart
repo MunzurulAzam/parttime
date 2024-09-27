@@ -7,4 +7,5 @@ abstract class RouteName {
   static const navigationScreen = '/navigationScreen';
   static const staterPage = '/staterPage';
   static const login = '/login';
+  static const signUp = '/signUp';
 }
