@@ -10,26 +10,26 @@ import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_from_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
-class LogInScreen extends StatefulWidget {
-  const LogInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  State<SignUpScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _LogInScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal:   30.w),
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             120.verticalSpace,
             AutoSizeText(
-              'Sign In',
+              'Sign up',
               style: TextStyle(
                 fontSize: 24.sp,
                 color: AppColors.kPrimaryColor,
@@ -45,11 +45,24 @@ class _LogInScreenState extends State<LogInScreen> {
               size: 88.w,
             ),
             40.verticalSpace,
-            AutoSizeText(
-              'Please sign in to continue',
-              style: TextStyle(fontSize: 16.sp, color: AppColors.kPrimaryColor),
+            CustomTextFormField(
+              prefixIcon: const Icon(
+                Icons.person_outline_rounded,
+                color: AppColors.kPrimaryColor,
+              ),
+              hintText: 'Name',
+              contentPadding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 15.0.h),
+              enableBoderColor: AppColors.kPrimaryColor,
+              focusBoderColor: AppColors.kPrimaryColor,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              borderRadius: BorderRadius.circular(10.r),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
             ),
-            8.verticalSpace,
+            10.verticalSpace,
             CustomTextFormField(
               prefixIcon: const Icon(
                 Icons.mail_outline_rounded,
@@ -90,25 +103,15 @@ class _LogInScreenState extends State<LogInScreen> {
                 borderRadius: BorderRadius.circular(10.r),
               ),
             ),
-            10.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AutoSizeText(
-                  'Forgot Password?',
-                  style: TextStyle(fontSize: 14.sp, color: AppColors.kPrimaryColor),
-                ),
-              ],
-            ),
             30.verticalSpace,
             OnProcessButtonWidget(
               onDone: (_) {
-                Navigator.pushNamed(context, RouteName.navigationScreen);
+                Navigator.pushReplacementNamed(context, RouteName.login);
               },
               contentPadding: EdgeInsets.symmetric(vertical: 10.h),
               // margin: EdgeInsets.symmetric(horizontal: 18.w),
               child: AutoSizeText(
-                'Sign In',
+                'Sign Up',
                 style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -121,7 +124,11 @@ class _LogInScreenState extends State<LogInScreen> {
               children: [
                 SvgPicture.asset(AppIcons.googleIcon),
                 25.horizontalSpace,
-                SvgPicture.asset(AppIcons.facebookIcon, height: 25.h, width: 25.w,)
+                SvgPicture.asset(
+                  AppIcons.facebookIcon,
+                  height: 25.h,
+                  width: 25.w,
+                )
               ],
             ),
             20.verticalSpace,
@@ -129,18 +136,17 @@ class _LogInScreenState extends State<LogInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AutoSizeText(
-                  'Don\'t have an account?',
+                  'Already have an account?',
                   style: TextStyle(fontSize: 14.sp, color: AppColors.kPrimaryColor),
                 ),
                 5.horizontalSpace,
-                InkWell(
-                  overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+                GestureDetector(
                   onTap: () {
                     // Navigator.pushNamed(context, RouteName.login);
-                    Navigator.pushReplacementNamed(context, RouteName.signUp);
+                    Navigator.pushReplacementNamed(context, RouteName.login);
                   },
                   child: AutoSizeText(
-                    'Sign Up',
+                    'Sign In',
                     style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor),
                   ),
                 ),
