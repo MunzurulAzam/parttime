@@ -1,12 +1,7 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'dart:developer';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
@@ -14,20 +9,17 @@ import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_from_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
-import 'package:hotel_management/providers/auth_provider/auth_provider.dart';
 
-class SignUpScreen extends ConsumerStatefulWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  ConsumerState<SignUpScreen> createState() => _LogInScreenState();
+  State<SignUpScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends ConsumerState<SignUpScreen> {
-
+class _LogInScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
-    final provide0 = ref.watch(authProvider);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
@@ -130,19 +122,7 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: () async {
-                    User? user = await provide0.signInWithGoogle();
-                    if (user != null) {
-                      if(context.mounted){
-                        Navigator.pushReplacementNamed(context, RouteName.navigationScreen);
-                      }
-                    }else{
-                      log('error');
-                    }
-                  },
-                  child: SvgPicture.asset(AppIcons.googleIcon),
-                ),
+                SvgPicture.asset(AppIcons.googleIcon),
                 25.horizontalSpace,
                 SvgPicture.asset(
                   AppIcons.facebookIcon,
