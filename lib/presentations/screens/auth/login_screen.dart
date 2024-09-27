@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
@@ -102,7 +103,7 @@ class _LogInScreenState extends State<LogInScreen> {
             30.verticalSpace,
             OnProcessButtonWidget(
               onDone: (_) {
-                // Navigator.pushNamed(context, RouteName.login);
+                Navigator.pushNamed(context, RouteName.navigationScreen);
               },
               contentPadding: EdgeInsets.symmetric(vertical: 10.h),
               // margin: EdgeInsets.symmetric(horizontal: 18.w),
@@ -132,9 +133,11 @@ class _LogInScreenState extends State<LogInScreen> {
                   style: TextStyle(fontSize: 14.sp, color: AppColors.kPrimaryColor),
                 ),
                 5.horizontalSpace,
-                GestureDetector(
+                InkWell(
+                  overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
                   onTap: () {
                     // Navigator.pushNamed(context, RouteName.login);
+                    Navigator.pushReplacementNamed(context, RouteName.signUp);
                   },
                   child: AutoSizeText(
                     'Sign Up',
