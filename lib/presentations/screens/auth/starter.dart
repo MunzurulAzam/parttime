@@ -49,6 +49,9 @@ class _TripScreensState extends State<StarterScreen> {
               ),
               200.verticalSpace,
               OnProcessButtonWidget(
+                onDone: (_) {
+                  Navigator.pushNamed(context, RouteName.signUp);
+                },
                 contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                 margin: EdgeInsets.symmetric(horizontal: 18.w),
                 child: AutoSizeText(
