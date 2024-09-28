@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
 import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
+import 'package:hotel_management/presentations/screens/profile/edit_profile.dart';
 import 'package:hotel_management/presentations/screens/trip/trip_screen.dart';
 import '../../../presentations/screens/splash/splash_screen.dart';
 import '../../exceptions/route_exceptions.dart';
@@ -29,6 +30,10 @@ class AppRoutes {
       case RouteName.staterPage:
         return MaterialPageRoute(
           builder: (_) => const TripScreens(),
+        );
+      case RouteName.editProfile:
+        return MaterialPageRoute(
+          builder: (_) => const EditProfileScreen(),
         );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
