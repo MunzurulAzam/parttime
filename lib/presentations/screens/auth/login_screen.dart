@@ -141,7 +141,7 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
                     },
                     child: SvgPicture.asset(AppIcons.googleIcon)),
                 25.horizontalSpace,
-                SvgPicture.asset(AppIcons.facebookIcon, height: 25.h, width: 25.w,)
+                // SvgPicture.asset(AppIcons.facebookIcon, height: 25.h, width: 25.w,)
               ],
             ),
             20.verticalSpace,
