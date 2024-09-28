@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,15 +20,16 @@ class ProfileScreen extends ConsumerStatefulWidget {
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: AutoSizeText(
-            'Profile',
-            style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
-          ),
-
+        backgroundColor: Colors.black,
+        title: AutoSizeText(
+          'Profile',
+          style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
+        ),
       ),
       body: Column(
         children: [
@@ -40,22 +42,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   cornerRadius: 50.r,
                   totalWidth: 90.w,
                   color: AppColors.dark10,
-                  image: const NetworkImage(
-                    'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg',
+                  image: NetworkImage(
+                    user?.photoURL ?? 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg',
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      'Morshedul Islam',
+                      user?.displayName ?? '',
                       style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                     1.verticalSpace,
                     AutoSizeText(
-                      'morshedul.qtec@gmail.com',
+                      user?.email ?? '',
                       style: TextStyle(fontSize: 17.sp, color: AppColors.kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -71,7 +73,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child:  ProfileContents(
+            child: ProfileContents(
               onTap: () {
                 Navigator.pushNamed(context, RouteName.editProfile);
               },
@@ -81,7 +83,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           CustomDividedBar(
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: const ProfileContents(
@@ -100,9 +101,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           CustomDividedBar(
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
-
           InkWell(
-            onTap: (){
+            onTap: () {
               ref.read(authProvider).signOut();
               Navigator.pushNamedAndRemoveUntil(context, RouteName.staterPage, (route) => false);
             },
