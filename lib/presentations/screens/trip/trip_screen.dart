@@ -15,63 +15,8 @@ class TripScreens extends StatefulWidget {
 class _TripScreensState extends State<TripScreens> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              AppImages.bcImage,
-              fit: BoxFit.cover, 
-            ),
-          ),
-          Column(
-            children: [
-           
-              300.verticalSpace, 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      'Premier Resort Rentals',
-                      style: TextStyle(fontSize: 24.sp, color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
+    return const Scaffold(
 
-                    ),
-                  ),
-                ],
-              ),
-              200.verticalSpace,
-              OnProcessButtonWidget(
-                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-                margin: EdgeInsets.symmetric(horizontal: 18.w),
-                child: AutoSizeText(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              15.verticalSpace,
-              OnProcessButtonWidget(
-                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-                margin: EdgeInsets.symmetric(horizontal: 18.w),
-                child: AutoSizeText(
-                  'Log In',
-                  style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
