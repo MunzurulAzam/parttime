@@ -113,6 +113,9 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   return Stack(
                     children: [
                       OnProcessButtonWidget(
+                        onDone: (_) {
+                          Navigator.pushNamed(context, RouteName.detailsScreen);
+                        },
                         backgroundColor: Colors.transparent,
                         width: 130.w,
                         margin: EdgeInsets.only(right: 10.w),

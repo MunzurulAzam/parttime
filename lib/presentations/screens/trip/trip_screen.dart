@@ -15,8 +15,8 @@ class TripScreens extends StatefulWidget {
 class _TripScreensState extends State<TripScreens> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return Scaffold(
+      backgroundColor: Colors.black,
     );
   }
 }
