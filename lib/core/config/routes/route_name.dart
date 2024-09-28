@@ -9,4 +9,5 @@ abstract class RouteName {
   static const editProfile = '/editProfile';
   static const login = '/login';
   static const signUp = '/signUp';
+  static const detailsScreen = '/detailsScreen';
 }

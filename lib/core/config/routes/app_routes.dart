@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management/presentations/screens/auth/login_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/sign_up_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/starter.dart';
+import 'package:hotel_management/presentations/screens/details_page/details_screen.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
 import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
 import 'package:hotel_management/presentations/screens/profile/edit_profile.dart';
@@ -46,9 +47,9 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const SignUpScreen(),
         );
-      case RouteName.editProfile:
+      case RouteName.detailsScreen:
         return MaterialPageRoute(
-          builder: (_) => const EditProfileScreen(),
+          builder: (_) => const DetailsScreen(),
         );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
