@@ -18,10 +18,8 @@ class HomeScreens extends ConsumerStatefulWidget {
 }
 
 class _HomeScreensState extends ConsumerState<HomeScreens> {
-
   @override
   void initState() {
-
     ref.read(homeScreenProvider).fetchImages();
     ref.read(homeScreenProvider).fetchTopVillas();
     ref.read(homeScreenProvider).fetchAllVillas();
@@ -51,7 +49,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   borderRadius: BorderRadius.all(Radius.circular(10.r)),
                   color: AppColors.kPrimaryColor,
                 ),
-                child:  CustomTextField(
+                child: CustomTextField(
                   suffixIcon: const Icon(
                     Icons.menu_outlined,
                     color: AppColors.kWhiteColor,
@@ -113,6 +111,9 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   return Stack(
                     children: [
                       OnProcessButtonWidget(
+                        onDone: (_) {
+                          Navigator.pushNamed(context, RouteName.detailsScreen);
+                        },
                         backgroundColor: Colors.transparent,
                         width: 130.w,
                         margin: EdgeInsets.only(right: 10.w),
@@ -128,7 +129,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                         right: 0,
                         child: AutoSizeText(
                           homeProvider.topVillaList[index].location ?? '',
-                          style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor,fontWeight: FontWeight.w700),
+                          style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ],
@@ -250,7 +251,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                               top: 15.h,
                               right: 15.w,
                               child: InkWell(
-                                onTap: (){
+                                onTap: () {
                                   homeProvider.addVillaToFavorites(homeProvider.allVillaList[index]);
                                 },
                                 child: Container(
