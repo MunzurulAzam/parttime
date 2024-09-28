@@ -58,6 +58,10 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const SignUpScreen(),
         );
+      case RouteName.editProfile:
+        return MaterialPageRoute(
+          builder: (_) => const EditProfileScreen(),
+        );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
       //   return MaterialPageRoute(
