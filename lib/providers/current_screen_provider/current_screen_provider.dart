@@ -1,22 +1,107 @@
+import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hotel_management/core/constants/strings/collections.dart';
+import 'package:hotel_management/data/models/home/carousel_image_model.dart';
+import 'package:hotel_management/data/models/home/top_villa_model.dart';
 
-class HomeScreenProvider extends StateNotifier<List<String>> {
-  HomeScreenProvider() : super([
-    'https://i.postimg.cc/mZmHXGXB/dummy-image.png',
-    'https://i.postimg.cc/mZmHXGXB/dummy-image.png',
-    'https://i.postimg.cc/mZmHXGXB/dummy-image.png',
-    'https://i.postimg.cc/mZmHXGXB/dummy-image.png',
-    'https://i.postimg.cc/mZmHXGXB/dummy-image.png',
-  ]);
+import '../../data/models/home/villa_model.dart';
+
+class HomeScreenProvider extends ChangeNotifier {
+
+  List<CarouselModel> _carouselList = [];
+  List<CarouselModel> get carouselList => _carouselList;
+
+  List<TopVillaModel> _topVillaList = [];
+  List<TopVillaModel> get topVillaList => _topVillaList;
+
+  List<VillaModel> _allVillaList = [];
+  List<VillaModel> get allVillaList => _allVillaList;
+
+  // Fetch image URLs from Firestore
+  Future<void> fetchImages() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection(AllFirebaseCollections.sliderImageCollection).get();
+
+      // Map each document to an ImageModel instance
+      final List<CarouselModel> images = snapshot.docs.map((doc) {
+        return CarouselModel.fromMap(doc.data(), doc.id);
+      }).toList();
+
+      _carouselList = images; // Update state with the list of ImageModel objects
+
+      log("data: $_carouselList");
+      notifyListeners();
+    } catch (e) {
+      log('Error fetching images: $e');
+    }
+  }
+
+  Future<void> fetchTopVillas() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection(AllFirebaseCollections.topVillasCollection).get();
+
+      // Map each document to an ImageModel instance
+      final List<TopVillaModel> topVillas = snapshot.docs.map((doc) {
+        return TopVillaModel.fromMap(doc.data(), doc.id);
+      }).toList();
+
+      _topVillaList = topVillas; // Update state with the list of ImageModel objects
+
+      log("data: $_topVillaList");
+      notifyListeners();
+    } catch (e) {
+      log('Error fetching images: $e');
+    }
+  }
+
+  Future<void> fetchAllVillas() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection(AllFirebaseCollections.allVillasCollection).get();
+
+      // Map each document to an ImageModel instance
+      final List<VillaModel> villas = snapshot.docs.map((doc) {
+        return VillaModel.fromMap(doc.data(), doc.id);
+      }).toList();
+
+      _allVillaList = villas; // Update state with the list of ImageModel objects
+
+      log("all villa data: $_allVillaList");
+      notifyListeners();
+    } catch (e) {
+      log('Error fetching images: $e');
+    }
+  }
+
+
+  // Method to add villa information to Firestore when favorite is clicked
+  Future<void> addVillaToFavorites(VillaModel villa) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+    try {
+      // Add villa to the favouriteVillasCollection
+      await _firestore.collection(AllFirebaseCollections.favouriteVillasCollection)
+          .doc(villa.id)
+          .set(villa.toMap());
+
+      // Update the is_favourite field in the all_villas collection
+      await _firestore.collection(AllFirebaseCollections.allVillasCollection)
+          .doc(villa.id)
+          .update({'is_favourite': true});
+
+      log('Villa added to favorites and updated: ${villa.name}');
+    } catch (e) {
+      log('Error adding villa to favorites: $e');
+    }
+  }
+
+
+
 }
 
 
-
-// Provider for HomeScreenProvider
-final homeScreenProvider =
-    StateNotifierProvider<HomeScreenProvider, List<String>>((ref) {
-  return HomeScreenProvider();
-});
+final homeScreenProvider = ChangeNotifierProvider<HomeScreenProvider>((ref) => HomeScreenProvider());
 
 final currentIndexProvider = StateProvider<int>((ref) => 0);

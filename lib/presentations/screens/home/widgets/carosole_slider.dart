@@ -10,28 +10,28 @@ class CarouselSliderWidget extends ConsumerWidget {
   final bool dotIndicator;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final homeState = ref.watch(homeprovider);
+    final homeProvider = ref.watch(homeScreenProvider);
     // final imgList = homeState.homePageUpperModel!.slider!.map((e) => e.image!).toList(); // get slider image
     final currentIndex = ref.watch(currentIndexProvider);
-    final imgList = [
-      'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-      'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-      'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-      'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-      'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    ];
+    // final imgList = [
+    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+    // ];
     return Column(
       children: [
-        imgList.isNotEmpty
+        homeProvider.carouselList.isNotEmpty
             ? CarouselSlider(
-                items: imgList
+                items: homeProvider.carouselList
                     .map((item) => Container(
                           margin: EdgeInsets.only(right: getScreenWidth(10)),
                           child: Center(
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(getBorderRadius(20)),
                                 child: Image.network(
-                                  item,
+                                  item.imgUrl,
                                   fit: BoxFit.cover,
                                   width: 1000,
                                   errorBuilder: (context, error, stackTrace) {
@@ -56,12 +56,12 @@ class CarouselSliderWidget extends ConsumerWidget {
                 ),
               )
             : const SizedBox.shrink(),
-        if (imgList.isNotEmpty)
+        if (homeProvider.carouselList.isNotEmpty)
           dotIndicator == false
               ? const SizedBox.shrink()
               : Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: imgList.asMap().entries.map((entry) {
+                  children: homeProvider.carouselList.asMap().entries.map((entry) {
                     return GestureDetector(
                       onTap: () => ref.read(currentIndexProvider.notifier).state = entry.key,
                       child: Container(
