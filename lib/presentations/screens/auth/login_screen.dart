@@ -1,5 +1,9 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
@@ -10,16 +14,21 @@ import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_from_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
-class LogInScreen extends StatefulWidget {
+import '../../../providers/auth_provider/auth_provider.dart';
+
+class LogInScreen extends ConsumerStatefulWidget {
   const LogInScreen({super.key});
 
   @override
-  State<LogInScreen> createState() => _LogInScreenState();
+  ConsumerState<LogInScreen> createState() => _LogInScreenState();
 }
 
-class _LogInScreenState extends State<LogInScreen> {
+class _LogInScreenState extends ConsumerState<LogInScreen> {
+
   @override
   Widget build(BuildContext context) {
+    final provider = ref.watch(authProvider);
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
@@ -119,7 +128,18 @@ class _LogInScreenState extends State<LogInScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(AppIcons.googleIcon),
+                InkWell(
+                    onTap: ()async{
+                      User? user = await provider.signInWithGoogle();
+                      if (user != null) {
+                        if(context.mounted){
+                          Navigator.pushReplacementNamed(context, RouteName.navigationScreen);
+                        }
+                      }else{
+                        log('error');
+                      }
+                    },
+                    child: SvgPicture.asset(AppIcons.googleIcon)),
                 25.horizontalSpace,
                 SvgPicture.asset(AppIcons.facebookIcon, height: 25.h, width: 25.w,)
               ],
