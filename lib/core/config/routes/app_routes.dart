@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management/presentations/screens/auth/login_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/sign_up_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/starter.dart';
+import 'package:hotel_management/presentations/screens/details_page/details_screen.dart';
 import 'package:hotel_management/presentations/screens/home/home_screen.dart';
 import 'package:hotel_management/presentations/screens/home/navigation_screen.dart';
 import 'package:hotel_management/presentations/screens/profile/edit_profile.dart';
@@ -50,26 +51,26 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) => const DetailsScreen(),
         );
-      case RouteName.login:
-        return MaterialPageRoute(
-          builder: (_) => const LogInScreen(),
-        );
-      case RouteName.signUp:
-        return MaterialPageRoute(
-          builder: (_) => const SignUpScreen(),
-        );
-      case RouteName.editProfile:
-        return MaterialPageRoute(
-          builder: (_) => const EditProfileScreen(),
-        );
-      case RouteName.login:
-        return MaterialPageRoute(
-          builder: (_) => const LogInScreen(),
-        );
-      case RouteName.signUp:
-        return MaterialPageRoute(
-          builder: (_) => const SignUpScreen(),
-        );
+      // case RouteName.login:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const LogInScreen(),
+      //   );
+      // case RouteName.signUp:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SignUpScreen(),
+      //   );
+      // case RouteName.editProfile:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const EditProfileScreen(),
+      //   );
+      // case RouteName.login:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const LogInScreen(),
+      //   );
+      // case RouteName.signUp:
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SignUpScreen(),
+      //   );
       // case Routes.home:
       //   final AppArguments arguments = settings.arguments as AppArguments;
       //   return MaterialPageRoute(
