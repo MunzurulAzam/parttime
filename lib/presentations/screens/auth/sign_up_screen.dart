@@ -6,12 +6,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
-import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_from_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 import 'package:hotel_management/providers/auth_provider/auth_provider.dart';
@@ -178,3 +176,5 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 }
+
+
