@@ -62,14 +62,14 @@ class BottomNavBar extends StatelessWidget {
                 icon: Icon(Icons.trip_origin,
                   color: selectedIndex == 1 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
                 ),
-                label: 'Trips',
+                label: 'Booking',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat,
-                  color: selectedIndex == 2 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
-                ),
-                label: 'Chat',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.chat,
+              //     color: selectedIndex == 2 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
+              //   ),
+              //   label: 'Chat',
+              // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite,
                   color: selectedIndex == 3 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),

@@ -1,8 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/screens/home/widgets/carosole_slider.dart';
+import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
 class HomeScreens extends StatefulWidget {
@@ -17,22 +20,68 @@ class _HomeScreensState extends State<HomeScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView( // Added SingleChildScrollView to avoid overflow
+      body: SingleChildScrollView(
+        // Added SingleChildScrollView to avoid overflow
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start, // Ensure text aligns properly
           children: [
             30.verticalSpace,
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 10.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: CarouselSliderWidget(),
             ),
             10.verticalSpace,
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                  color: AppColors.kPrimaryColor,
+                ),
+                child:  CustomTextField(
+                  suffixIcon: const Icon(
+                    Icons.menu_outlined,
+                    color: AppColors.kWhiteColor,
+                  ),
+                  hint: 'city, airport, or hotel',
+                  fillColor: AppColors.kPrimaryColor,
+                  color: AppColors.kPrimaryColor,
+                  horizontalPadding: 25.w,
+                ),
+              ),
+            ),
+            18.verticalSpace,
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 8.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OnProcessButtonWidget(
+                    onDone: (_) {
+                      Navigator.pushNamed(context, RouteName.staterPage);
+                    },
+                    contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+                    backgroundColor: AppColors.kPrimaryColor,
+                    child: AutoSizeText('Exotic', style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor)),
+                  ),OnProcessButtonWidget(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+                    backgroundColor: AppColors.kPrimaryColor,
+                    child: AutoSizeText('Luxury', style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor)),
+                  ),OnProcessButtonWidget(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 35.w),
+                    backgroundColor: AppColors.kPrimaryColor,
+                    child: AutoSizeText('Sports', style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor)),
+                  )
+                ],
+              ),
+            ),
+            18.verticalSpace,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: Align(
                   alignment: Alignment.centerLeft,
                   child: AutoSizeText(
-                    'Top Destination',
+                    'Top Five Deluxe',
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: AppColors.kPrimaryColor,
@@ -40,41 +89,36 @@ class _HomeScreensState extends State<HomeScreens> {
                   )),
             ),
             15.verticalSpace,
-            SizedBox( 
-              height: 90.h, 
+            SizedBox(
+              height: 80.h,
               child: ListView.builder(
-                padding: EdgeInsets.zero,
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(left: 15.w),
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18.r)),
-                          height: 150.h,
-                          width: 150.w,
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(18.r),
-                              child: Image.network(
-                                  'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=')),
+                  return Stack(
+                    children: [
+                      OnProcessButtonWidget(
+                        backgroundColor: Colors.transparent,
+                        width: 130.w,
+                        margin: EdgeInsets.only(right: 10.w),
+                        contentPadding: EdgeInsets.zero,
+                        child: Image.network(
+                          'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
+                          fit: BoxFit.cover,
                         ),
-                        Positioned(
-                          bottom: 30.h,
-                          left: 30.w,
-                          child: AutoSizeText(
-                            'House 64i8',
-                            style: TextStyle(
-                                fontSize: 17.sp,
-                                color: AppColors.kWhiteColor,
-                                fontWeight: FontWeight.bold),
-                          ),
+                      ),
+                      Positioned(
+                        bottom: 30.h,
+                        left: 34.w,
+                        right: 0,
+                        child: AutoSizeText(
+                          'House i68',
+                          style: TextStyle(fontSize: 14.sp, color: AppColors.kWhiteColor),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -94,7 +138,7 @@ class _HomeScreensState extends State<HomeScreens> {
             ),
             10.verticalSpace,
             Padding(
-              padding:  EdgeInsets.symmetric(horizontal: 15.w),
+              padding: EdgeInsets.symmetric(horizontal: 15.w),
               child: SizedBox(
                 height: 195.h, // Ensure the container has a defined height
                 child: ListView.builder(
@@ -128,8 +172,7 @@ class _HomeScreensState extends State<HomeScreens> {
                                     child: Image.network(
                                       'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
                                       fit: BoxFit.fill,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
+                                      errorBuilder: (context, error, stackTrace) {
                                         return Container(
                                           color: Colors.grey,
                                         );
@@ -150,17 +193,13 @@ class _HomeScreensState extends State<HomeScreens> {
                                   borderRadius: BorderRadius.circular(15.r),
                                 ),
                                 child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 15.w),
+                                  padding: EdgeInsets.symmetric(horizontal: 15.w),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           AutoSizeText(
                                             'House i68',
@@ -180,8 +219,7 @@ class _HomeScreensState extends State<HomeScreens> {
                                       ),
                                       OnProcessButtonWidget(
                                         height: 20.h,
-                                        backgroundColor:
-                                            AppColors.kPrimaryColor,
+                                        backgroundColor: AppColors.kPrimaryColor,
                                         child: AutoSizeText(
                                           'Book Now',
                                           style: TextStyle(
@@ -199,8 +237,7 @@ class _HomeScreensState extends State<HomeScreens> {
                               top: 15.h,
                               right: 15.w,
                               child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 6.w, vertical: 5.h),
+                                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
                                 decoration: BoxDecoration(
                                   color: AppColors.kWhiteColor,
                                   borderRadius: BorderRadius.circular(20.r),
