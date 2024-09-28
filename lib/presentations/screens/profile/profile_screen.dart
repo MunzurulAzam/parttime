@@ -1,5 +1,4 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,17 +31,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    final provider0 = ref.watch(profileUpdateProvider);
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
-        title: const Text(
+        backgroundColor: Colors.black,
+        title: AutoSizeText(
           'Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
         ),
-        centerTitle: true,
-        elevation: 0,
       ),
       body: Column(
         children: [
@@ -57,21 +54,21 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   totalWidth: 90.w,
                   color: AppColors.dark10,
                   image: NetworkImage(
-                    user?.photoURL ?? 'https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI=',
+                    user?.photoURL ?? 'https://i.pinimg.com/736x/c0/74/9b/c0749b7cc401421662ae901ec8f9f660.jpg',
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      provider0.userDoc?['name'] ?? '',
+                      user?.displayName ?? '',
                       style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
                     1.verticalSpace,
                     AutoSizeText(
-                      provider0.userDoc?['email'] ?? '',
+                      user?.email ?? '',
                       style: TextStyle(fontSize: 17.sp, color: AppColors.kPrimaryColor),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
