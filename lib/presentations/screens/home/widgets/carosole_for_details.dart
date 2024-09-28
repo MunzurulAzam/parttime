@@ -44,7 +44,7 @@ class CarosoleforDetails extends ConsumerWidget {
                         ))
                     .toList(),
                 options: CarouselOptions(
-                  viewportFraction: 1.06,
+                  viewportFraction: 1.5,
                   padEnds: false,
                   enableInfiniteScroll: false,
                   autoPlay: true,
