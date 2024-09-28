@@ -1,19 +1,22 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/presentations/profile_photo.dart';
 
-class ProfileScreen extends StatefulWidget {
+import '../../../providers/auth_provider/auth_provider.dart';
+
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,10 +101,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: AppColors.kPrimaryColor.withOpacity(0.3),
           ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: const ProfileContents(
-              title: 'Log out',
+          InkWell(
+            onTap: (){
+              ref.read(authProvider).signOut();
+              Navigator.pushNamedAndRemoveUntil(context, RouteName.staterPage, (route) => false);
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18.w),
+              child: const ProfileContents(
+                title: 'Log out',
+              ),
             ),
           ),
         ],
