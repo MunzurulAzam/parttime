@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -13,38 +14,53 @@ class AuthProvider extends ChangeNotifier {
   User? get currentUser => _currentUser;
 
   //!--------------------------------firebase auth login with Google
-  Future<User?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
-        return null; // User canceled the sign-in
-      }
-
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-      _currentUser = userCredential.user;
-
-      // Save session
-      if (_currentUser != null) {
-        await saveUserSession(_currentUser!.uid);
-        _isAuthenticated = true;
-        notifyListeners();
-      }
-
-      return _currentUser;
-    } catch (e) {
-      log(e.toString());
-      return null;
+Future<User?> signInWithGoogle() async {
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      return null; // User canceled the sign-in
     }
+
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+    _currentUser = userCredential.user;
+
+    if (_currentUser != null) {
+      await saveUserSession(_currentUser!.uid);
+      _isAuthenticated = true;
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_currentUser!.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        // If not exists, add the user to Firestore
+        await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
+          'name': googleUser.displayName,
+          'email': googleUser.email,
+          'uid': _currentUser!.uid,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+      }
+
+      notifyListeners();
+    }
+
+    return _currentUser;
+  } catch (e) {
+    log(e.toString());
+    return null;
   }
+}
 
   //!--------------------------------firebase auth sign-up with email
-  Future<User?> signUpWithEmail(String email, String password) async {
+Future<User?> signUpWithEmail(String name, String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -52,10 +68,17 @@ class AuthProvider extends ChangeNotifier {
       );
       _currentUser = userCredential.user;
 
-      // Save session
       if (_currentUser != null) {
         await saveUserSession(_currentUser!.uid);
         _isAuthenticated = true;
+
+        await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
+          'name': name,
+          'email': email,
+          'uid': _currentUser!.uid,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
+
         notifyListeners();
       }
 
@@ -65,29 +88,41 @@ class AuthProvider extends ChangeNotifier {
       return null;
     }
   }
-
   //!--------------------------------firebase auth sign-in with email
-  Future<User?> signInWithEmail(String email, String password) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      _currentUser = userCredential.user;
+Future<User?> signInWithEmail(String email, String password) async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    _currentUser = userCredential.user;
 
-      // Save session
-      if (_currentUser != null) {
-        await saveUserSession(_currentUser!.uid);
-        _isAuthenticated = true;
-        notifyListeners();
+    if (_currentUser != null) {
+      await saveUserSession(_currentUser!.uid);
+      _isAuthenticated = true;
+
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(_currentUser!.uid)
+          .get();
+
+      if (!userDoc.exists) {
+        await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
+          'email': email,
+          'uid': _currentUser!.uid,
+          'createdAt': FieldValue.serverTimestamp(),
+        });
       }
 
-      return _currentUser;
-    } catch (e) {
-      log(e.toString());
-      return null;
+      notifyListeners();
     }
+
+    return _currentUser;
+  } catch (e) {
+    log(e.toString());
+    return null;
   }
+}
 
   //!--------------------------------firebase auth sign-out
   Future<void> signOut() async {
@@ -128,6 +163,39 @@ class AuthProvider extends ChangeNotifier {
     log(prefs.containsKey('userId').toString());
     return prefs.containsKey('userId');
   }
+
+  //!_____________________________________________________for update information
+
+ Future<void> updateUserProfile({
+  required String name,
+  required String email,
+  required String phone,
+}) async {
+  try {
+    if (_currentUser != null) {
+      await _currentUser!.updateEmail(email);
+      log("Email updated successfully");
+
+      //!__________________________________________________________________________________________ Update Firestore user data
+      await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
+        'name': name,
+        'email': email,
+        'phone': phone,
+      }, SetOptions(merge: true)); 
+       
+      _currentUser = FirebaseAuth.instance.currentUser;
+
+      log("User profile updated successfully");
+      notifyListeners();
+    } else {
+      log("No user is currently signed in.");
+    }
+  } catch (e) {
+    log("Failed to update profile: $e");
+  }
+}
+
+
 }
 
 final authProvider = ChangeNotifierProvider<AuthProvider>((ref) {  return AuthProvider();});
