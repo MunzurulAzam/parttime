@@ -21,209 +21,117 @@ class _TripScreensState extends ConsumerState<TripScreens> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
-        title: const Text(
-          'Booking List',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
+        backgroundColor: Colors.black ,
+        title: const AutoSizeText('Booking List', style: TextStyle(color: Colors.white),),),
       backgroundColor: Colors.black,
-      body: Padding(
-        padding: EdgeInsets.all(16.w),
-        child: FutureBuilder(
-          future: bookingProvider0.fetchBookings(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              final bookings = bookingProvider0.bookings;
-
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: bookings.length,
-                itemBuilder: (context, index) {
-                  final booking = bookings[index];
-                  String formattedDateStart =
-                  formatDate(booking['booking_start_date']);
-                  String formattedDateEnd =
-                  formatDate(booking['booking_end_date']);
-
-                  return Card(
-                    margin: EdgeInsets.only(bottom: 20.h),
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(16.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Booking header
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body:                 Padding(
+        padding:  EdgeInsets.only(top: 10.h),
+        child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 10.h),
+                        child: Container(
+                          height: 250.h,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Stack(
                             children: [
-                              CircleAvatar(
-                                backgroundImage:
-                                const NetworkImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"),
-                                radius: 20.r,
-                              ),
                               Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    booking['user_name'],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.sp,
-                                      color: AppColors.kPrimaryColor,
+                                  Container(
+                                    height: 210.h,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10.r),
                                     ),
-                                  ),
-                                  Text(
-                                    booking['user_email'],
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.grey,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      child: Image.network(
+                                        width: double.infinity,
+                                         '',
+                                        fit: BoxFit.fill,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Container(
+                                            color: Colors.grey,
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                              Chip(
-                                label: Text(
-                                  '${booking['day_count']} days',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                              Positioned(
+                                bottom: 7.h,
+                                left: 0, // Position it to the left
+                                right: 0, // Position it to the right
+                                child: Container(
+                                  height: 55.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kWhiteColor,
+                                    borderRadius: BorderRadius.circular(15.r),
                                   ),
-                                ),
-                                backgroundColor: AppColors.kPrimaryColor,
-                              ),
-                            ],
-                          ),
-                          Divider(height: 20.h, thickness: 1),
-                          // Booking details
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Start Date:',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.grey,
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // Column(
+                                        //   mainAxisAlignment: MainAxisAlignment.center,
+                                        //   children: [
+                                        //     AutoSizeText(
+                                        //        'aaa',
+                                        //       style: TextStyle(fontSize: 13.sp, color: AppColors.kPrimaryColor),
+                                        //     ),
+                                        //     AutoSizeText(
+                                        //       '\$/ day',
+                                        //       style: TextStyle(fontSize: 13.sp, color: AppColors.kPrimaryColor),
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                       
+                                        OnProcessButtonWidget(
+                                          contentPadding: EdgeInsets.symmetric(horizontal: 50.w),
+                                          height: 20.h,
+                                          backgroundColor: AppColors.kPrimaryColor,
+                                          child: AutoSizeText(
+                                            'Booked',
+                                            style: TextStyle(fontSize: 13.sp, color: AppColors.kWhiteColor),
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(height: 5.h),
-                                  Text(
-                                    formattedDateStart,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp,
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'End Date:',
-                                    style: TextStyle(
-                                      fontSize: 12.sp,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5.h),
-                                  Text(
-                                    formattedDateEnd,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14.sp,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              // Positioned(
+                              //     top: 15.h,
+                              //     right: 15.w,
+                              //     child: Container(
+                              //       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                              //       decoration: BoxDecoration(
+                              //         color: AppColors.kWhiteColor,
+                              //         borderRadius: BorderRadius.circular(20.r),
+                              //       ),
+                              //       child: Icon(
+                              //         Icons.favorite,
+                              //         color: AppColors.kPrimaryColor,
+                              //         size: 20.r,
+                              //       ),
+                              //     ))
                             ],
                           ),
-                          SizedBox(height: 10.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Total Amount:',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                '\$${booking['total_amount']}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                  color: AppColors.kPrimaryColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 8.h),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Villa Name:',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                '${booking['villa_name']}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                  color: AppColors.kPrimaryColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Villa Location:',
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                '${booking['villa_location']}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.sp,
-                                  color: AppColors.kPrimaryColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                          // CustomDividerBar(), // Custom divider (or you can add other elements as per your design)
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            }
-          },
-        ),
+                        ),
+                      );
+                    },
+                  ),
       ),
+              
     );
   }
 }

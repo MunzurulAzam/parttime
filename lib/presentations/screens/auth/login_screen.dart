@@ -119,7 +119,7 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
               child: OnProcessButtonWidget(
                 onTap: () async {
                   final success =
-                      await ref.read(authProvider.notifier).signInWithEmail(emailTextEditingController.text, passwordTextEditingController.text,context);
+                      await ref.read(authProvider.notifier).signInWithEmail(emailTextEditingController.text, passwordTextEditingController.text);
                   return success;
                 },
                 onDone: (success) {
