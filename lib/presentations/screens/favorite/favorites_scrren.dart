@@ -49,7 +49,8 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
               )
             ] else ...[
               Expanded(
-                child: ListView.builder(
+                child: 
+                ListView.builder(
                   padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -151,6 +152,7 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                     );
                   },
                 ),
+              
               )
             ]
           ],
