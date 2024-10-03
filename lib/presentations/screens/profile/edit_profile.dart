@@ -33,8 +33,8 @@ _loadUserData();
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
-      _nameController.text = user.displayName ?? '';
-      _emailController.text = user.email ?? '';
+      _nameController.text = userDoc['name'] ?? '';
+      _emailController.text = userDoc['email'] ?? '';
       _phoneController.text = userDoc['phone'] ?? '';
     }
   }

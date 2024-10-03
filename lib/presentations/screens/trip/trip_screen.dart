@@ -16,7 +16,118 @@ class _TripScreensState extends State<TripScreens> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black ,
+        title: const AutoSizeText('Booking List', style: TextStyle(color: Colors.white),),),
       backgroundColor: Colors.black,
+      body:                 Padding(
+        padding:  EdgeInsets.only(top: 10.h),
+        child: ListView.builder(
+                    padding: EdgeInsets.zero,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: 6,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 10.h),
+                        child: Container(
+                          height: 250.h,
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Stack(
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 210.h,
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      child: Image.network(
+                                        width: double.infinity,
+                                         '',
+                                        fit: BoxFit.fill,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return Container(
+                                            color: Colors.grey,
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Positioned(
+                                bottom: 7.h,
+                                left: 0, // Position it to the left
+                                right: 0, // Position it to the right
+                                child: Container(
+                                  height: 55.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kWhiteColor,
+                                    borderRadius: BorderRadius.circular(15.r),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        // Column(
+                                        //   mainAxisAlignment: MainAxisAlignment.center,
+                                        //   children: [
+                                        //     AutoSizeText(
+                                        //        'aaa',
+                                        //       style: TextStyle(fontSize: 13.sp, color: AppColors.kPrimaryColor),
+                                        //     ),
+                                        //     AutoSizeText(
+                                        //       '\$/ day',
+                                        //       style: TextStyle(fontSize: 13.sp, color: AppColors.kPrimaryColor),
+                                        //     ),
+                                        //   ],
+                                        // ),
+                                       
+                                        OnProcessButtonWidget(
+                                          contentPadding: EdgeInsets.symmetric(horizontal: 50.w),
+                                          height: 20.h,
+                                          backgroundColor: AppColors.kPrimaryColor,
+                                          child: AutoSizeText(
+                                            'Booked',
+                                            style: TextStyle(fontSize: 13.sp, color: AppColors.kWhiteColor),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // Positioned(
+                              //     top: 15.h,
+                              //     right: 15.w,
+                              //     child: Container(
+                              //       padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                              //       decoration: BoxDecoration(
+                              //         color: AppColors.kWhiteColor,
+                              //         borderRadius: BorderRadius.circular(20.r),
+                              //       ),
+                              //       child: Icon(
+                              //         Icons.favorite,
+                              //         color: AppColors.kPrimaryColor,
+                              //         size: 20.r,
+                              //       ),
+                              //     ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+      ),
+              
     );
   }
 }

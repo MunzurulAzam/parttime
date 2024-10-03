@@ -23,6 +23,9 @@ class SignUpScreen extends ConsumerStatefulWidget {
 }
 
 class _LogInScreenState extends ConsumerState<SignUpScreen> {
+  TextEditingController nameTextEditingController = TextEditingController();
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController paswordTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +56,7 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
             ),
             40.verticalSpace,
             CustomTextFormField(
+              textEditingController: nameTextEditingController,
               prefixIcon: const Icon(
                 Icons.person_outline_rounded,
                 color: AppColors.kPrimaryColor,
@@ -71,6 +75,7 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
             ),
             10.verticalSpace,
             CustomTextFormField(
+              textEditingController: emailTextEditingController,
               prefixIcon: const Icon(
                 Icons.mail_outline_rounded,
                 color: AppColors.kPrimaryColor,
@@ -89,6 +94,7 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
             ),
             13.verticalSpace,
             CustomTextFormField(
+              textEditingController: paswordTextEditingController,
               obscureText: true,
               suffixIcon: const Icon(
                 Icons.visibility_off,
@@ -112,8 +118,17 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
             ),
             30.verticalSpace,
             OnProcessButtonWidget(
-              onDone: (_) {
-                Navigator.pushReplacementNamed(context, RouteName.login);
+              onTap: () async {
+                final success = await ref
+                    .read(authProvider.notifier)
+                    .signUpWithEmail(nameTextEditingController.text, emailTextEditingController.text, paswordTextEditingController.text);
+                return success;
+              },
+              onDone: (isSuccess) {
+                if(isSuccess == true){
+                  Navigator.pushReplacementNamed(context, RouteName.login);
+                }
+                
               },
               contentPadding: EdgeInsets.symmetric(vertical: 10.h),
               // margin: EdgeInsets.symmetric(horizontal: 18.w),
@@ -133,10 +148,10 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
                   onTap: () async {
                     User? user = await provide0.signInWithGoogle();
                     if (user != null) {
-                      if(context.mounted){
+                      if (context.mounted) {
                         Navigator.pushReplacementNamed(context, RouteName.navigationScreen);
                       }
-                    }else{
+                    } else {
                       log('error');
                     }
                   },
@@ -177,5 +192,3 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
     );
   }
 }
-
-
