@@ -6,12 +6,16 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/providers/payment/payment_provider.dart';
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 =======
 import 'package:hotel_management/providers/payment/payment_provider.dart';
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+import 'package:hotel_management/providers/payment/payment_provider.dart';
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/utils/date_formatter.dart';
@@ -19,12 +23,16 @@ import '../../widgets/on_process_button.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
 <<<<<<< HEAD
+<<<<<<< HEAD
   final String? villaId;
 
   const PaymentScreen({super.key, required this.villaId});
 =======
   const PaymentScreen({super.key});
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+  const PaymentScreen({super.key});
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
   @override
   ConsumerState<PaymentScreen> createState() => _PaymentScreenState();
@@ -59,9 +67,12 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
 <<<<<<< HEAD
+<<<<<<< HEAD
     final detailsController = ref.watch(detailsProvider);
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -182,6 +193,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                           final success = await _onValidate();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
                           if (success == true) {
                             return true;
                           } else {
@@ -190,6 +202,11 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                             return true;
                           }else{
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+                          if( success == true) {
+                            return true;
+                          }else{
+>>>>>>> 22ed79f (villa details done and payment implemented)
                             return false;
                           }
                         },
@@ -249,6 +266,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
       // String expiryDate = 'XX/XX';
 <<<<<<< HEAD
+<<<<<<< HEAD
       final startDate = ref.read(detailsProvider).startDate;
       final endDate = ref.read(detailsProvider).endDate;
 
@@ -260,11 +278,16 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
       String date = convertToYearMonth(expiryDate);
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+
+      String date = convertToYearMonth(expiryDate);
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
       final success = await ref.read(paymentProvider).processPayment(
             cardNumber: cardNumber.split(' ').join(),
             expirationDate: date,
             cvv: cvvCode,
+<<<<<<< HEAD
 <<<<<<< HEAD
             totalAmount: double.parse(totalAmount),
             context: context,
@@ -281,6 +304,10 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 8e2bbe7 (booking design updated)
+=======
+            totalAmount: 30,
+            context: context,
+>>>>>>> 22ed79f (villa details done and payment implemented)
           );
 
       if (success == true) {

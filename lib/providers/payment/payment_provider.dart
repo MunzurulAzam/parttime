@@ -1,10 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +24,7 @@ class PaymentProvider with ChangeNotifier {
     required double totalAmount,
     required BuildContext context,
 <<<<<<< HEAD
+<<<<<<< HEAD
     required String villaID,
     required String bookingStartDate,
     required String bookingEndDate,
@@ -32,6 +36,8 @@ class PaymentProvider with ChangeNotifier {
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 8e2bbe7 (booking design updated)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
   }) async {
 
     log("hit server");
@@ -52,6 +58,7 @@ class PaymentProvider with ChangeNotifier {
 
     try {
       final response = await http.post(url, headers: headers, body: body);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
       log('Response: ${response.statusCode}');
@@ -86,17 +93,26 @@ class PaymentProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+      _isProcessing = false;
+      log('Response: ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+>>>>>>> 22ed79f (villa details done and payment implemented)
         // Success
         log('Payment Success: ${response.body}');
         ScaffoldMessenger.of(context).showSnackBar(
            SnackBar(content: Text('${jsonDecode(response.body)['message']}')),
         );
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         _isProcessing = false;
 
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
         notifyListeners();
         return true;
       } else {

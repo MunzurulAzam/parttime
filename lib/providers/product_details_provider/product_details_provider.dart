@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +12,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/data/models/details/villa_details.dart';
+<<<<<<< HEAD
 =======
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hotel_management/data/models/details/villa_details.dart';
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
 class ProductDetailsProvider extends ChangeNotifier {
   List<Item> items = [];
@@ -26,6 +32,7 @@ class ProductDetailsProvider extends ChangeNotifier {
 
   VillaDetailsModel? get details => _details;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   String? _totalAmount;
 
@@ -57,6 +64,14 @@ class ProductDetailsProvider extends ChangeNotifier {
     try {
       DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+
+  Future<void> fetchVillaDetails() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
       if (doc.exists) {
         _details = VillaDetailsModel.fromFirestore(doc.data() as Map<String, dynamic>);
@@ -65,9 +80,12 @@ class ProductDetailsProvider extends ChangeNotifier {
         _isLoading = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         getTotalAmount();
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
         notifyListeners();
       } else {
         _isLoading = false;
@@ -86,6 +104,7 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   void getTotalAmount() {
     int dailyRent = int.parse(_details?.dailyRent ?? '0') * (dayCount ?? 0);
@@ -166,6 +185,9 @@ class ProductDetailsProvider extends ChangeNotifier {
 =======
   /*List<Item> generateItems() {
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+  /*List<Item> generateItems() {
+>>>>>>> 22ed79f (villa details done and payment implemented)
     return [
       // Item(
       //   headerValue: 'Additional Info ',

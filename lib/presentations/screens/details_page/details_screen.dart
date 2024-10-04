@@ -6,10 +6,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+>>>>>>> 22ed79f (villa details done and payment implemented)
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
@@ -18,12 +23,14 @@ import 'package:hotel_management/presentations/screens/home/widgets/carosole_for
 import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:hotel_management/providers/current_screen_provider/current_screen_provider.dart';
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
-import '../../../data/models/home/villa_model.dart';
-
 class DetailsScreen extends ConsumerStatefulWidget {
+<<<<<<< HEAD
   VillaModel model;
 
   DetailsScreen({super.key, required this.model});
@@ -33,6 +40,9 @@ import 'package:hotel_management/providers/product_details_provider/product_deta
 class DetailsScreen extends ConsumerStatefulWidget {
   const DetailsScreen({super.key});
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+  const DetailsScreen({super.key});
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
   @override
   ConsumerState<DetailsScreen> createState() => _DetailsScreenState();
@@ -48,10 +58,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   loadData() async {
     Future(() {
 <<<<<<< HEAD
+<<<<<<< HEAD
       ref.read(detailsProvider).fetchVillaDetails(widget.model.id ?? '');
 =======
       ref.read(detailsProvider).fetchVillaDetails();
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+      ref.read(detailsProvider).fetchVillaDetails();
+>>>>>>> 22ed79f (villa details done and payment implemented)
     });
   }
 
@@ -59,14 +73,18 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
   Widget build(BuildContext context) {
     final detailsVilaProvider = ref.watch(detailsProvider);
 <<<<<<< HEAD
+<<<<<<< HEAD
     final homeProvider = ref.watch(homeScreenProvider);
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 
     return Scaffold(
       backgroundColor: Colors.black,
       body: detailsVilaProvider.isLoading == true
           ? const Center(child: CircularProgressIndicator())
+<<<<<<< HEAD
 <<<<<<< HEAD
           : detailsVilaProvider.details == null
               ? const Center(
@@ -80,430 +98,324 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                     Expanded(
                       child: SingleChildScrollView(
                         child: Column(
+=======
+          : Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Stack(
+>>>>>>> 22ed79f (villa details done and payment implemented)
                           children: [
-                            Stack(
-                              children: [
-                                const CarosoleforDetails(
-                                  dotIndicator: false,
-                                ),
-                                Positioned(
-                                  top: 25.h,
-                                  left: 5.w,
-                                  child: OnProcessButtonWidget(
-                                    backgroundColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    child: const Icon(Icons.arrow_back),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 25.h,
-                                  right: 5.w,
-                                  child: OnProcessButtonWidget(
-                                    onTap: () {
-                                      if (widget.model.isFavourite == true) {
-                                        // If it's already a favorite, remove it
-                                        homeProvider.removeVillaFromFavorites(widget.model, context);
-                                      } else {
-                                        // Otherwise, add it to favorites
-                                        homeProvider.addVillaToFavorites(widget.model, context);
-                                      }
-                                    },
-                                    backgroundColor: Colors.white,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    child: Icon(
-                                      widget.model.isFavourite == true ? Icons.favorite : Icons.favorite_outline,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 25.h,
-                                  right: 25.w,
-                                  child: OnProcessButtonWidget(
-                                    backgroundColor: Colors.black,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    child: Icon(
-                                      Icons.search_rounded,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            const CarosoleforDetails(
+                              dotIndicator: false,
                             ),
-                            2.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Row(
+                            Positioned(
+                              top: 25.h,
+                              left: 5.w,
+                              child: OnProcessButtonWidget(
+                                backgroundColor: Colors.white,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 7.w, vertical: 6.h),
+                                borderRadius: BorderRadius.circular(30.r),
+                                child: const Icon(Icons.arrow_back),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  return null;
+                                },
+                              ),
+                            ),
+                            Positioned(
+                              top: 25.h,
+                              right: 5.w,
+                              child: OnProcessButtonWidget(
+                                backgroundColor: Colors.white,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                borderRadius: BorderRadius.circular(30.r),
+                                child: Icon(
+                                  Icons.favorite,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 25.h,
+                              right: 25.w,
+                              child: OnProcessButtonWidget(
+                                backgroundColor: Colors.black,
+                                contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                borderRadius: BorderRadius.circular(30.r),
+                                child: Icon(
+                                  Icons.search_rounded,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        2.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Row(
+                            children: [
+                              AutoSizeText(detailsVilaProvider.details?.title ?? '', style: TextStyle(fontSize: 20.sp, color: Theme.of(context).primaryColor)),
+                              const Spacer(),
+                              AutoSizeText(detailsVilaProvider.details?.review ?? '0.0', style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor)),
+                              5.horizontalSpace,
+                              Icon(Icons.star, color: Theme.of(context).primaryColor, size: 14.sp),
+                            ],
+                          ),
+                        ),
+                        15.verticalSpace,
+                        const CustomDividedBar(color: AppColors.kPrimaryColor),
+                        10.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: AutoSizeText(
+                                  'Booking Dates',
+                                  style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor),
+                                  textAlign: TextAlign.start,
+                                ),
+                              ),
+                              15.verticalSpace,
+                              Row(
                                 children: [
-                                  AutoSizeText(detailsVilaProvider.details?.title ?? '', style: TextStyle(fontSize: 20.sp, color: Theme.of(context).primaryColor)),
+                                  Icon(Icons.calendar_month, color: Theme.of(context).primaryColor),
                                   const Spacer(),
-                                  AutoSizeText(detailsVilaProvider.details?.review ?? '0.0', style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor)),
-                                  5.horizontalSpace,
-                                  Icon(Icons.star, color: Theme.of(context).primaryColor, size: 14.sp),
+                                  InkWell(
+                                      overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+                                      child: AutoSizeText('Change', style: TextStyle(fontSize: 14.sp, color: Theme.of(context).scaffoldBackgroundColor))),
                                 ],
+                              )
+                            ],
+                          ),
+                        ),
+                        15.verticalSpace,
+                        const CustomDividedBar(color: AppColors.kPrimaryColor),
+
+                        ///guest
+                        SingleItem(
+                          title: 'Max Guests',
+                          value: detailsVilaProvider.details?.maxGuest,
+                        ),
+                        SingleItem(
+                          title: 'Adults',
+                          value: detailsVilaProvider.details?.adults ?? '2',
+                        ),
+                        SingleItem(
+                          title: 'Children',
+                          value: detailsVilaProvider.details?.children ?? '2',
+                        ),
+
+                        Text(
+                          'Rent Info',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 10),
+
+                        Divider(
+                          height: 2.h,
+                          color: Theme.of(context).primaryColor,
+                        ),
+
+                        ///Rent Info
+                        SingleItem(
+                          title: 'Daily Rent',
+                          value: "\$${detailsVilaProvider.details?.dailyRent ?? '\$100'}",
+                        ),
+                        SingleItem(
+                          title: 'Cleaning Fees',
+                          value: "\$${detailsVilaProvider.details?.cleaningFees ?? '\$100'}",
+                        ),
+                        SingleItem(
+                          title: 'Service Fees',
+                          value: "\$${detailsVilaProvider.details?.serviceFees ?? '\$100'}",
+                        ),
+                        Text(
+                          'Extra',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 10),
+
+                        Divider(
+                          height: 2.h,
+                          color: Theme.of(context).primaryColor,
+                        ),
+
+                        SingleItem(
+                          title: 'Airport Pickup',
+                          value: "\$${detailsVilaProvider.details?.airportPickup ?? '\$100'}",
+                        ),
+                        SingleItem(
+                          title: 'Extra Beds',
+                          value: "\$${detailsVilaProvider.details?.extraBeds ?? '\$100'}",
+                        ),
+
+                        Text(
+                          'Room Info',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 10),
+
+                        Divider(
+                          height: 2.h,
+                          color: Theme.of(context).primaryColor,
+                        ),
+
+                        SingleItem(
+                          title: 'Bed Rooms',
+                          value: detailsVilaProvider.details?.bedRoom ?? '0',
+                        ),
+
+                        SingleItem(
+                          title: 'Living Rooms',
+                          value: detailsVilaProvider.details?.livingRoom ?? '0',
+                        ),
+
+                        SingleItem(
+                          title: 'Kitchen Rooms',
+                          value: detailsVilaProvider.details?.kitchen ?? '0',
+                        ),
+
+                        SingleItem(
+                          title: 'Bathrooms Rooms',
+                          value: detailsVilaProvider.details?.bathroom ?? '0',
+                        ),
+
+                        SingleItem(
+                          title: 'Gym',
+                          value: detailsVilaProvider.details?.gym ?? '0',
+                        ),
+
+                        Text(
+                          'Top Amenities',
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(height: 10),
+
+                        Divider(
+                          height: 2.h,
+                          color: Theme.of(context).primaryColor,
+                        ),
+
+                        SingleItem(
+                          title: 'Kitchen',
+                          value: detailsVilaProvider.details?.amKitchen == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Wifi',
+                          value: detailsVilaProvider.details?.amWifi == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Dedicated Workspace',
+                          value: detailsVilaProvider.details?.amDedicatedWorkspace == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Free parking on premises',
+                          value: detailsVilaProvider.details?.amFreeParking == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Pool',
+                          value: detailsVilaProvider.details?.amPool == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Private hot hub',
+                          value: detailsVilaProvider.details?.amPrivateHotHub == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Pets Allowed',
+                          value: detailsVilaProvider.details?.amPetAllowed == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Tv',
+                          value: detailsVilaProvider.details?.amTv == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Washer',
+                          value: detailsVilaProvider.details?.amWasher == true ? 'Yes' : 'No',
+                        ),
+
+                        SingleItem(
+                          title: 'Dryer',
+                          value: detailsVilaProvider.details?.amDryer == true ? 'Yes' : 'No',
+                        ),
+
+                        // ExpandedPanel(),
+                        10.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: AutoSizeText(
+                                  'Cancellation Policy',
+                                  style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                                ),
                               ),
-                            ),
-                            15.verticalSpace,
-                            const CustomDividedBar(color: AppColors.kPrimaryColor),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      'Booking Dates',
-                                      style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor),
-                                      textAlign: TextAlign.start,
-                                    ),
-                                  ),
-                                  15.verticalSpace,
-                                  Row(
-                                    children: [
-                                      Icon(Icons.calendar_month, color: Theme.of(context).primaryColor),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          detailsVilaProvider.selectBookingDates(context);
-                                        },
-                                        overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
-                                        child: AutoSizeText(
-                                          'Change',
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            color: Theme.of(context).scaffoldBackgroundColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  15.verticalSpace,
-                                  if (detailsVilaProvider.startDate != null && detailsVilaProvider.endDate != null)
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                                      child: AutoSizeText(
-                                        "Selected booking date: \n${detailsVilaProvider.formatDateTime(detailsVilaProvider.startDate!, detailsVilaProvider.fixedTime, context)} to ${detailsVilaProvider.formatDateTime(detailsVilaProvider.endDate!, detailsVilaProvider.fixedTime, context)}",
-                                        style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor),
-                                      ),
-                                    ),
-                                ],
+                            ],
+                          ),
+                        ),
+                        10.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.only(left: 35.w, right: 20.w),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: AutoSizeText(
+                                  'Free Cancellation',
+                                  style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                                ),
                               ),
-                            ),
-                            15.verticalSpace,
-                            const CustomDividedBar(color: AppColors.kPrimaryColor),
-
-                            ///guest
-                            SingleItem(
-                              title: 'Max Guests',
-                              value: detailsVilaProvider.details?.maxGuest,
-                            ),
-                            SingleItem(
-                              title: 'Adults',
-                              value: detailsVilaProvider.details?.adults ?? '2',
-                            ),
-                            SingleItem(
-                              title: 'Children',
-                              value: detailsVilaProvider.details?.children ?? '2',
-                            ),
-
-                            Text(
-                              'Rent Info',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 10),
-
-                            Divider(
-                              height: 2.h,
-                              color: Theme.of(context).primaryColor,
-                            ),
-
-                            ///Rent Info
-                            SingleItem(
-                              title: 'Daily Rent',
-                              value: "\$${detailsVilaProvider.details?.dailyRent ?? '\$100'}",
-                            ),
-                            SingleItem(
-                              title: 'Cleaning Fees',
-                              value: "\$${detailsVilaProvider.details?.cleaningFees ?? '\$100'}",
-                            ),
-                            SingleItem(
-                              title: 'Service Fees',
-                              value: "\$${detailsVilaProvider.details?.serviceFees ?? '\$100'}",
-                            ),
-                            Text(
-                              'Extra',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 10),
-
-                            Divider(
-                              height: 2.h,
-                              color: Theme.of(context).primaryColor,
-                            ),
-
-                            SingleItem(
-                              title: 'Airport Pickup',
-                              value: "\$${detailsVilaProvider.details?.airportPickup ?? '\$100'}",
-                            ),
-                            SingleItem(
-                              title: 'Extra Beds',
-                              value: "\$${detailsVilaProvider.details?.extraBeds ?? '\$100'}",
-                            ),
-
-                            Text(
-                              'Room Info',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 10),
-
-                            Divider(
-                              height: 2.h,
-                              color: Theme.of(context).primaryColor,
-                            ),
-
-                            SingleItem(
-                              title: 'Bed Rooms',
-                              value: detailsVilaProvider.details?.bedRoom ?? '0',
-                            ),
-
-                            SingleItem(
-                              title: 'Living Rooms',
-                              value: detailsVilaProvider.details?.livingRoom ?? '0',
-                            ),
-
-                            SingleItem(
-                              title: 'Kitchen Rooms',
-                              value: detailsVilaProvider.details?.kitchen ?? '0',
-                            ),
-
-                            SingleItem(
-                              title: 'Bathrooms Rooms',
-                              value: detailsVilaProvider.details?.bathroom ?? '0',
-                            ),
-
-                            SingleItem(
-                              title: 'Gym',
-                              value: detailsVilaProvider.details?.gym ?? '0',
-                            ),
-
-                            Text(
-                              'Top Amenities',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(height: 10),
-
-                            Divider(
-                              height: 2.h,
-                              color: Theme.of(context).primaryColor,
-                            ),
-
-                            SingleItem(
-                              title: 'Kitchen',
-                              value: detailsVilaProvider.details?.amKitchen == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Wifi',
-                              value: detailsVilaProvider.details?.amWifi == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Dedicated Workspace',
-                              value: detailsVilaProvider.details?.amDedicatedWorkspace == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Free parking on premises',
-                              value: detailsVilaProvider.details?.amFreeParking == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Pool',
-                              value: detailsVilaProvider.details?.amPool == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Private hot hub',
-                              value: detailsVilaProvider.details?.amPrivateHotHub == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Pets Allowed',
-                              value: detailsVilaProvider.details?.amPetAllowed == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Tv',
-                              value: detailsVilaProvider.details?.amTv == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Washer',
-                              value: detailsVilaProvider.details?.amWasher == true ? 'Yes' : 'No',
-                            ),
-
-                            SingleItem(
-                              title: 'Dryer',
-                              value: detailsVilaProvider.details?.amDryer == true ? 'Yes' : 'No',
-                            ),
-
-                            // ExpandedPanel(),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      'Cancellation Policy',
-                                      style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.only(left: 35.w, right: 20.w),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      'Free Cancellation',
-                                      style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                                    ),
-                                  ),
-                                  5.verticalSpace,
-                                  AutoSizeText(
-                                    'We offer a complete refund for cancellations made 24 hours prior to the booking time',
-                                    style: TextStyle(fontSize: 13.sp, color: Theme.of(context).primaryColor.withOpacity(0.6)),
-                                    wrapWords: true,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            15.verticalSpace,
-                            const CustomDividedBar(color: AppColors.kPrimaryColor),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              child: Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: AutoSizeText(
-                                      'Description',
-                                      style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            10.verticalSpace,
-                            Padding(
-                              padding: EdgeInsets.only(left: 35.w, right: 20.w, bottom: 15.h),
-                              child: AutoSizeText(
-                                detailsVilaProvider.details?.desc ?? '',
+                              5.verticalSpace,
+                              AutoSizeText(
+                                'We offer a complete refund for cancellations made 24 hours prior to the booking time',
                                 style: TextStyle(fontSize: 13.sp, color: Theme.of(context).primaryColor.withOpacity(0.6)),
                                 wrapWords: true,
                               ),
-                            ),
-                            5.verticalSpace,
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                    OnProcessButtonWidget(
-                      height: 60,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
-                      borderRadius: BorderRadius.zero,
-                      child: AutoSizeText('Continue', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
-                      onTap: () async {
-                        if(detailsVilaProvider.startDate == null) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Please select date'),
-                            ),
-                          );
-                          return;
-                        }
-
-                        detailsVilaProvider.getTotalAmount();
-                        _customModalBottomSheet(
-                          dailyRent: detailsVilaProvider.details?.dailyRent ?? '0',
-                          cleaningFees: detailsVilaProvider.details?.cleaningFees ?? '0',
-                          serviceFees: detailsVilaProvider.details?.serviceFees ?? '0',
-                          airportPickup: detailsVilaProvider.details?.airportPickup ?? '0',
-                          extraBeds: detailsVilaProvider.details?.extraBeds ?? '0',
-                          tax: detailsVilaProvider.details?.tax ?? '0',
-                          detailsVilaProvider: detailsVilaProvider,
-                        );
-                      },
-                    )
-                  ],
-                ),
-    );
-  }
-
-  Future<void> _customModalBottomSheet({
-    String? dailyRent,
-    String? cleaningFees,
-    String? serviceFees,
-    String? airportPickup,
-    String? extraBeds,
-    String? tax,
-    required ProductDetailsProvider detailsVilaProvider,
-  }) {
-    return showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      builder: (BuildContext context) {
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-          height: 350.h,
-          child: SizedBox.expand(
-            child: Center(
-              child: Column(
-                children: <Widget>[
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                          color: Colors.black,
+                        15.verticalSpace,
+                        const CustomDividedBar(color: AppColors.kPrimaryColor),
+                        10.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: AutoSizeText(
+                                  'Description',
+                                  style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AutoSizeText(
-                              'Villa',
-                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                            ),
-                            AutoSizeText(
-                              "Per day's rent",
-                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                            ),
-                            AutoSizeText(
-                              "Day's",
-                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                            ),
-                            AutoSizeText(
-                              "Subtotal",
-                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
-                            ),
-                          ],
+                        10.verticalSpace,
+                        Padding(
+                          padding: EdgeInsets.only(left: 35.w, right: 20.w, bottom: 15.h),
+                          child: AutoSizeText(
+                            detailsVilaProvider.details?.desc ?? '',
+                            style: TextStyle(fontSize: 13.sp, color: Theme.of(context).primaryColor.withOpacity(0.6)),
+                            wrapWords: true,
+                          ),
                         ),
+<<<<<<< HEAD
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -623,17 +535,32 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             }
                           },
                         )
+=======
+                        5.verticalSpace,
+>>>>>>> 22ed79f (villa details done and payment implemented)
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                OnProcessButtonWidget(
+                  height: 60,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
+                  borderRadius: BorderRadius.zero,
+                  child: AutoSizeText('Continue', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
+                  onTap: () async {
+                    return true;
+                  },
+                  onDone: (value) {
+                    if (value == true) {
+                      Navigator.pushNamed(context, RouteName.paymentScreen);
+                    }
+                  },
+                )
+              ],
             ),
-          ),
-        );
-      },
     );
   }
+<<<<<<< HEAD
 
   Row singleItemFees(BuildContext context,String? price , String? title, {bool fromTax = false}) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -987,6 +914,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
     );
   }
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 22ed79f (villa details done and payment implemented)
 }
 
 class SingleItem extends StatelessWidget {
