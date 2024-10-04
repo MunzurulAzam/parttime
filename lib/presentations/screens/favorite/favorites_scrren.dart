@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
+import '../../../core/constants/assets/app_images.dart';
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/constants/assets/app_images.dart';
 import '../../../providers/favourite_provider/favourite_provider.dart';
