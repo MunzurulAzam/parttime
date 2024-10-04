@@ -24,6 +24,8 @@ class LogInScreen extends ConsumerStatefulWidget {
 }
 
 class _LogInScreenState extends ConsumerState<LogInScreen> {
+  TextEditingController emailTextEditingController = TextEditingController();
+  TextEditingController passwordTextEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal:   30.w),
+        padding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -60,6 +62,7 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
             ),
             8.verticalSpace,
             CustomTextFormField(
+              textEditingController: emailTextEditingController,
               prefixIcon: const Icon(
                 Icons.mail_outline_rounded,
                 color: AppColors.kPrimaryColor,
@@ -78,6 +81,7 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
             ),
             13.verticalSpace,
             CustomTextFormField(
+              textEditingController: passwordTextEditingController,
               obscureText: true,
               suffixIcon: const Icon(
                 Icons.visibility_off,
@@ -110,18 +114,28 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
               ],
             ),
             30.verticalSpace,
-            OnProcessButtonWidget(
-              onDone: (_) {
-                Navigator.pushNamed(context, RouteName.navigationScreen);
-              },
-              contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-              // margin: EdgeInsets.symmetric(horizontal: 18.w),
-              child: AutoSizeText(
-                'Sign In',
-                style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                textAlign: TextAlign.center,
+            Align(
+              alignment: Alignment.center,
+              child: OnProcessButtonWidget(
+                onTap: () async {
+                  final success =
+                      await ref.read(authProvider.notifier).signInWithEmail(emailTextEditingController.text, passwordTextEditingController.text);
+                  return success;
+                },
+                onDone: (success) {
+                  if(success == true){
+                    Navigator.pushNamed(context, RouteName.navigationScreen);
+                  }
+                },
+                contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+                // margin: EdgeInsets.symmetric(horizontal: 18.w),
+                child: AutoSizeText(
+                  'Sign In',
+                  style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
             25.verticalSpace,
@@ -129,13 +143,13 @@ class _LogInScreenState extends ConsumerState<LogInScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                    onTap: ()async{
+                    onTap: () async {
                       User? user = await provider.signInWithGoogle();
                       if (user != null) {
-                        if(context.mounted){
+                        if (context.mounted) {
                           Navigator.pushReplacementNamed(context, RouteName.navigationScreen);
                         }
-                      }else{
+                      } else {
                         log('error');
                       }
                     },

@@ -60,36 +60,47 @@ Future<User?> signInWithGoogle() async {
 }
 
   //!--------------------------------firebase auth sign-up with email
-Future<User?> signUpWithEmail(String name, String email, String password) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      _currentUser = userCredential.user;
+Future<bool> signUpWithEmail(String name, String email, String password) async {
+  try {
+    // Attempt to create a new user with email and password
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    _currentUser = userCredential.user;
 
-      if (_currentUser != null) {
-        await saveUserSession(_currentUser!.uid);
-        _isAuthenticated = true;
+    // If user creation was successful
+    if (_currentUser != null) {
+      // Save user session
+      await saveUserSession(_currentUser!.uid);
+      _isAuthenticated = true;
 
-        await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
-          'name': name,
-          'email': email,
-          'uid': _currentUser!.uid,
-          'createdAt': FieldValue.serverTimestamp(),
-        });
+      // Store user information in Firestore
+      await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
+        'name': name,
+        'email': email,
+        'uid': _currentUser!.uid,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
 
-        notifyListeners();
-      }
+      // Notify listeners if you're using a provider or similar state management solution
+      notifyListeners();
 
-      return _currentUser;
-    } catch (e) {
-      log(e.toString());
-      return null;
+      // Return true for success
+      return true;
     }
+    
+    // Return false if user creation failed (this case should rarely occur if there was no error)
+    return false;
+  } catch (e) {
+    // Log the error and return false for failure
+    log(e.toString());
+    return false;
   }
+}
+
   //!--------------------------------firebase auth sign-in with email
-Future<User?> signInWithEmail(String email, String password) async {
+Future<bool> signInWithEmail(String email, String password) async {
   try {
     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
@@ -115,12 +126,23 @@ Future<User?> signInWithEmail(String email, String password) async {
       }
 
       notifyListeners();
+      return true;
+    } else {
+      return false;
     }
-
-    return _currentUser;
+  } on FirebaseAuthException catch (e) {
+    // Handle specific Firebase exceptions
+    if (e.code == 'user-not-found') {
+      log('No user found for that email.');
+    } else if (e.code == 'wrong-password') {
+      log('Wrong password provided.');
+    } else {
+      log(e.message ?? 'An unknown error occurred');
+    }
+    return false;
   } catch (e) {
     log(e.toString());
-    return null;
+    return false;
   }
 }
 
