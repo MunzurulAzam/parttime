@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -9,6 +10,8 @@ import 'package:hotel_management/presentations/screens/home/widgets/carosole_sli
 import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 import 'package:hotel_management/providers/current_screen_provider/current_screen_provider.dart';
+
+import '../../../core/constants/assets/app_images.dart';
 
 class HomeScreens extends ConsumerStatefulWidget {
   const HomeScreens({super.key});
@@ -120,9 +123,40 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                         width: 130.w,
                         margin: EdgeInsets.only(right: 10.w),
                         contentPadding: EdgeInsets.zero,
-                        child: Image.network(
-                          homeProvider.topVillaList[index].imgUrl ?? '',
+                        child: CachedNetworkImage(
+                          imageUrl:homeProvider.topVillaList[index].imgUrl ?? '',
                           fit: BoxFit.cover,
+                          imageBuilder: (context, imageProvider) => Container(
+                            width: 130.w,
+                            height: 80.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          placeholder: (context, url) => Container(
+                            width: 130.w,
+                            height: 80.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                              color: AppColors.kDividerColor,
+                              image: DecorationImage(
+                                image: AssetImage(AppImages.placeholder),
+                                fit: BoxFit.cover,
+                              )
+                            ),
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            width: 130.w,
+                            height: 80.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                              color: AppColors.kDividerColor,
+                            ),
+                          ),
                         ),
                       ),
                       Positioned(
@@ -163,114 +197,147 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   itemCount: homeProvider.allVillaList.isEmpty ? 0 : homeProvider.allVillaList.length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 10.h, right: 10.w),
-                      child: Container(
-                        height: 250.h,
-                        width: 270.w, // Give a defined width to avoid layout issues
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        child: Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  height: 170.h,
-                                  width: double.infinity, // Full width
-                                  decoration: BoxDecoration(
-                                    color: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(10.r),
+                    return InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, RouteName.detailsScreen);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 10.h, right: 10.w),
+                        child: Container(
+                          height: 250.h,
+                          width: 270.w, // Give a defined width to avoid layout issues
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10.r),
+                          ),
+                          child: Stack(
+                            children: [
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 170.h,
+                                    width: double.infinity, // Full width
+                                    decoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10.r),
+                                      child: CachedNetworkImage(
+                                        imageUrl:homeProvider.allVillaList[index].imgUrl ?? '',
+                                        fit: BoxFit.cover,
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          width: 270.w,
+                                          height: 250.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) => Container(
+                                          width: 270.w,
+                                          height: 250.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                              color: AppColors.kDividerColor,
+                                              image: DecorationImage(
+                                                image: AssetImage(AppImages.placeholder),
+                                                fit: BoxFit.cover,
+                                              )
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) => Container(
+                                          width: 270.w,
+                                          height: 250.h,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                            color: AppColors.kDividerColor,
+                                          ),
+                                        ),
+                                      )
+
+
+                                    ),
                                   ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10.r),
-                                    child: Image.network(
-                                      homeProvider.allVillaList[index].imgUrl ?? '',
-                                      fit: BoxFit.fill,
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey,
-                                        );
-                                      },
+                                ],
+                              ),
+                              Positioned(
+                                bottom: 5.h,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  height: 55.h,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.kWhiteColor,
+                                    borderRadius: BorderRadius.circular(15.r),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 15.w),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            AutoSizeText(
+                                              homeProvider.allVillaList[index].name ?? '',
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: AppColors.kPrimaryColor,
+                                              ),
+                                            ),
+                                            AutoSizeText(
+                                              '\$${homeProvider.allVillaList[index].price} / day',
+                                              style: TextStyle(
+                                                fontSize: 13.sp,
+                                                color: AppColors.kPrimaryColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        OnProcessButtonWidget(
+                                          height: 20.h,
+                                          backgroundColor: AppColors.kPrimaryColor,
+                                          child: AutoSizeText(
+                                            'Book Now',
+                                            style: TextStyle(
+                                              fontSize: 13.sp,
+                                              color: AppColors.kWhiteColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
-                            Positioned(
-                              bottom: 5.h,
-                              left: 0,
-                              right: 0,
-                              child: Container(
-                                height: 55.h,
-                                decoration: BoxDecoration(
-                                  color: AppColors.kWhiteColor,
-                                  borderRadius: BorderRadius.circular(15.r),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.w),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          AutoSizeText(
-                                            homeProvider.allVillaList[index].name ?? '',
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: AppColors.kPrimaryColor,
-                                            ),
-                                          ),
-                                          AutoSizeText(
-                                            '\$${homeProvider.allVillaList[index].price} / day',
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              color: AppColors.kPrimaryColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      OnProcessButtonWidget(
-                                        height: 20.h,
-                                        backgroundColor: AppColors.kPrimaryColor,
-                                        child: AutoSizeText(
-                                          'Book Now',
-                                          style: TextStyle(
-                                            fontSize: 13.sp,
-                                            color: AppColors.kWhiteColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                              ),
+                              Positioned(
+                                top: 15.h,
+                                right: 15.w,
+                                child: InkWell(
+                                  onTap: (){
+                                    homeProvider.addVillaToFavorites(homeProvider.allVillaList[index]);
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.kWhiteColor,
+                                      borderRadius: BorderRadius.circular(20.r),
+                                    ),
+                                    child: Icon(
+                                      homeProvider.allVillaList[index].isFavourite == true ? Icons.favorite : Icons.favorite_outline,
+                                      color: AppColors.kPrimaryColor,
+                                      size: 20.r,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Positioned(
-                              top: 15.h,
-                              right: 15.w,
-                              child: InkWell(
-                                onTap: (){
-                                  homeProvider.addVillaToFavorites(homeProvider.allVillaList[index]);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.kWhiteColor,
-                                    borderRadius: BorderRadius.circular(20.r),
-                                  ),
-                                  child: Icon(
-                                    homeProvider.allVillaList[index].isFavourite == true ? Icons.favorite : Icons.favorite_outline,
-                                    color: AppColors.kPrimaryColor,
-                                    size: 20.r,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

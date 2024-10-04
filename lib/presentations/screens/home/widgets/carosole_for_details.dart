@@ -1,84 +1,122 @@
+import 'dart:developer';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/core/utils/size_config.dart';
 import 'package:hotel_management/providers/current_screen_provider/current_screen_provider.dart';
+import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/constants/assets/app_images.dart';
 
 class CarosoleforDetails extends ConsumerWidget {
   const CarosoleforDetails({super.key, this.dotIndicator = true});
   final bool dotIndicator;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeProvider = ref.watch(homeScreenProvider);
-    // final imgList = homeState.homePageUpperModel!.slider!.map((e) => e.image!).toList(); // get slider image
+    final detailVillaProvider = ref.watch(detailsProvider);
     final currentIndex = ref.watch(currentIndexProvider);
-    // final imgList = [
-    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    //   'https://media.istockphoto.com/id/104731717/photo/luxury-resort.jpg?s=612x612&w=0&k=20&c=cODMSPbYyrn1FHake1xYz9M8r15iOfGz9Aosy9Db7mI=',
-    // ];
+
+    // log("images data: ${detailVillaProvider.details?.images}");
     return Column(
       children: [
-        homeProvider.carouselList.isNotEmpty
+        // Check if the images list is non-null and has items
+        detailVillaProvider.details?.images.isNotEmpty == true
             ? CarouselSlider(
-                items: homeProvider.carouselList
-                    .map((item) => Container(
-                          margin: EdgeInsets.only(right: getScreenWidth(10)),
-                          child: Center(
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(getBorderRadius(20)),
-                                child: Image.network(
-                                  item.imgUrl,
-                                  fit: BoxFit.cover,
-                                  width: 1000,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: AppColors.kWhiteColor,
-                                    );
-                                  },
-                                )),
-                          ),
-                        ))
-                    .toList(),
-                options: CarouselOptions(
-                  viewportFraction: 1.5,
-                  padEnds: false,
-                  enableInfiniteScroll: false,
-                  autoPlay: true,
-                  enlargeCenterPage: false,
-                  aspectRatio: 1.5,
-                  onPageChanged: (index, reason) {
-                    ref.read(currentIndexProvider.notifier).state = index;
-                  },
-                ),
-              )
+          items: detailVillaProvider.details?.images
+              .map((item) => Container(
+            margin: EdgeInsets.only(right: 10), // Adjust your margin utility here
+            child: Center(
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20), // Adjust your borderRadius utility here
+                  child: CachedNetworkImage(
+                    imageUrl: item,
+                    fit: BoxFit.cover,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: 1000,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Container(
+                      width: 1000,
+                      height: 300.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                          color: AppColors.kDividerColor,
+                          image: DecorationImage(
+                            image: AssetImage(AppImages.placeholder),
+                            fit: BoxFit.cover,
+                          )
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      width: 1000,
+                      height: 300.h,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                        color: AppColors.kDividerColor,
+                      ),
+                    ),
+                  )
+
+
+              ),
+            ),
+          ))
+              .toList(),
+          options: CarouselOptions(
+            viewportFraction: 1.5,
+            padEnds: false,
+            enableInfiniteScroll: false,
+            autoPlay: true,
+            enlargeCenterPage: false,
+            aspectRatio: 1.5,
+            onPageChanged: (index, reason) {
+              ref.read(currentIndexProvider.notifier).state = index;
+            },
+          ),
+        )
             : const SizedBox.shrink(),
-        if (homeProvider.carouselList.isNotEmpty)
+
+        // Dot indicator section
+        if (detailVillaProvider.details?.images.isNotEmpty == true)
           dotIndicator == false
               ? const SizedBox.shrink()
               : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: homeProvider.carouselList.asMap().entries.map((entry) {
-                    return GestureDetector(
-                      onTap: () => ref.read(currentIndexProvider.notifier).state = entry.key,
-                      child: Container(
-                        width: getScreenWidth(8),
-                        height: getScreenHeight(8),
-                        margin: EdgeInsets.symmetric(vertical: getScreenHeight(8.0), horizontal: getScreenHeight(4.0)),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color:
-                              (Theme.of(context).brightness == Brightness.dark ? AppColors.kGrayIconColor.withOpacity(0.3) : AppColors.kPrimaryColor)
-                                  .withOpacity(currentIndex == entry.key ? 0.9 : 0.4),
-                        ),
-                      ),
-                    );
-                  }).toList(),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: detailVillaProvider.details!.images.asMap().entries.map((entry) {
+              return GestureDetector(
+                onTap: () => ref.read(currentIndexProvider.notifier).state = entry.key,
+                child: Container(
+                  width: 8,  // Adjust your dot size utility here
+                  height: 8, // Adjust your dot size utility here
+                  margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0), // Adjust your margin utility here
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: (Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.withOpacity(0.3)
+                        : Colors.blue) // Adjust your color utility here
+                        .withOpacity(currentIndex == entry.key ? 0.9 : 0.4),
+                  ),
                 ),
+              );
+            }).toList(),
+          ),
       ],
     );
   }
 }
+

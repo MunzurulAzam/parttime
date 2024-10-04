@@ -11,7 +11,7 @@ class ExpandedPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(profileProvider);
+    final provider = ref.watch(detailsProvider);
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 5.w),
       child: ListView.builder(
