@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/core/utils/size_config.dart';
 import 'package:hotel_management/providers/current_screen_provider/current_screen_provider.dart';
+
+import '../../../../core/constants/assets/app_images.dart';
 
 class CarouselSliderWidget extends ConsumerWidget {
   const CarouselSliderWidget({super.key, this.dotIndicator = true});
@@ -30,15 +34,40 @@ class CarouselSliderWidget extends ConsumerWidget {
                           child: Center(
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(getBorderRadius(20)),
-                                child: Image.network(
-                                  item.imgUrl,
+                                child: CachedNetworkImage(
+                                  imageUrl:item.imgUrl,
                                   fit: BoxFit.cover,
-                                  width: 1000,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      color: AppColors.kWhiteColor,
-                                    );
-                                  },
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    width: double.infinity.w,
+                                    height: 300.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => Container(
+                                    width: double.infinity.w,
+                                    height: 300.h,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                        color: AppColors.kDividerColor,
+                                        image: DecorationImage(
+                                          image: AssetImage(AppImages.placeholder),
+                                          fit: BoxFit.cover,
+                                        )
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Container(
+                                    width: 130.w,
+                                    height: 80.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                      color: AppColors.kDividerColor,
+                                    ),
+                                  ),
                                 )),
                           ),
                         ))
