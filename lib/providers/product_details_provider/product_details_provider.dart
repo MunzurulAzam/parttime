@@ -1,11 +1,45 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hotel_management/data/models/details/villa_details.dart';
 
 class ProductDetailsProvider extends ChangeNotifier {
   List<Item> items = [];
 
-  ProductDetailsProvider() {
-    items.addAll(generateItems());
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  VillaDetailsModel? _details;
+
+  VillaDetailsModel? get details => _details;
+
+
+  Future<void> fetchVillaDetails() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
+
+      if (doc.exists) {
+        _details = VillaDetailsModel.fromFirestore(doc.data() as Map<String, dynamic>);
+
+        Future.delayed(const Duration(milliseconds: 500));
+        _isLoading = false;
+
+        notifyListeners();
+      } else {
+        _isLoading = false;
+        notifyListeners();
+        log('Document does not exist');
+      }
+    } catch (error) {
+      log('Error fetching post: $error');
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   void togglePanel(int index) {
@@ -13,18 +47,18 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Item> generateItems() {
+  /*List<Item> generateItems() {
     return [
-      Item(
-        headerValue: 'Additional Info ',
-        expandedValues: ['Max Guest', 'Adults', 'kids'],
-        endValues: ['10', '5', '8'],
-      ),
-      Item(
-        headerValue: 'Rent Info',
-        expandedValues: ['Daily Rent', 'Cleaning Fees', 'Service Fees', 'Extras', 'Airport pic up', 'Extra Beds'],
-        endValues: ['\$650', '\$80', '\$800', '\$0', '\$50', '\$100'],
-      ),
+      // Item(
+      //   headerValue: 'Additional Info ',
+      //   expandedValues: ['Max Guest', 'Adults', 'kids'],
+      //   endValues: ['10', '5', '8'],
+      // ),
+      // Item(
+      //   headerValue: 'Rent Info',
+      //   expandedValues: ['Daily Rent', 'Cleaning Fees', 'Service Fees', 'Extras', 'Airport pic up', 'Extra Beds'],
+      //   endValues: ['\$650', '\$80', '\$800', '\$0', '\$50', '\$100'],
+      // ),
       Item(
         headerValue: 'Room Info',
         expandedValues: [
@@ -34,22 +68,17 @@ class ProductDetailsProvider extends ChangeNotifier {
           'Bathrooms',
           'Gym',
         ],
-        endValues: ['3', '1', '1', '2', '1'],
+        endValues: [
+          details?.bedRoom ?? '0',
+          details?.livingRoom ?? '0',
+          details?.kitchen ?? '0',
+          details?.bathroom ?? '0',
+          details?.gym ?? '0',
+        ],
       ),
       Item(
         headerValue: 'Top Amenities',
-        expandedValues: [
-          'Kitchen',
-          'Wifi',
-          'Dedicated workspace',
-          'Free parking on premises',
-          'Pool',
-          'Private hot tub',
-          'Pets allowed',
-          'TV',
-          'Washer',
-          'Dryer'
-        ],
+        expandedValues: ['Kitchen', 'Wifi', 'Dedicated workspace', 'Free parking on premises', 'Pool', 'Private hot tub', 'Pets allowed', 'TV', 'Washer', 'Dryer'],
         endValues: ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
       ),
       // Item(
@@ -58,7 +87,7 @@ class ProductDetailsProvider extends ChangeNotifier {
       //   endValues: [''],
       // ),
     ];
-  }
+  }*/
 }
 
 class Item {
@@ -75,4 +104,4 @@ class Item {
   bool isExpanded;
 }
 
-final profileProvider = ChangeNotifierProvider((_) => ProductDetailsProvider());
+final detailsProvider = ChangeNotifierProvider((_) => ProductDetailsProvider());

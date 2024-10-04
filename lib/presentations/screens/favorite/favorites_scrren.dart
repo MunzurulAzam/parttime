@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
+import '../../../core/constants/assets/app_images.dart';
 import '../../../providers/favourite_provider/favourite_provider.dart';
 
 class FavoriteScreen extends ConsumerStatefulWidget {
@@ -52,7 +54,7 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                 child: 
                 ListView.builder(
                   padding: EdgeInsets.zero,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: provider.favouriteListValue.isEmpty ? 0 : provider.favouriteListValue.length,
                   itemBuilder: (context, index) {
@@ -76,16 +78,40 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                                   ),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(10.r),
-                                    child: Image.network(
-                                      width: double.infinity,
-                                      provider.favouriteListValue[index].imgUrl ?? '',
-                                      fit: BoxFit.fill,
-                                      errorBuilder: (context, error, stackTrace) {
-                                        return Container(
-                                          color: Colors.grey,
-                                        );
-                                      },
-                                    ),
+                                    child: CachedNetworkImage(
+                                      imageUrl:provider.favouriteListValue[index].imgUrl ?? '',
+                                      fit: BoxFit.cover,
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        height: 250.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) => Container(
+                                        height: 250.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                            color: AppColors.kDividerColor,
+                                            image: DecorationImage(
+                                              image: AssetImage(AppImages.placeholder),
+                                              fit: BoxFit.cover,
+                                            )
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) => Container(
+                                        height: 250.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                          color: AppColors.kDividerColor,
+                                        ),
+                                      ),
+                                    )
+
+
                                   ),
                                 ),
                               ],
