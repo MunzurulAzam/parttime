@@ -1,8 +1,12 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/data/models/details/villa_details.dart';
 
 class ProductDetailsProvider extends ChangeNotifier {
@@ -16,31 +20,12 @@ class ProductDetailsProvider extends ChangeNotifier {
 
   VillaDetailsModel? get details => _details;
 
-  String? _totalAmount;
 
-  String? get totalAmount => _totalAmount;
-
-  int? _dayCount;
-
-  int? get dayCount => _dayCount;
-
-  double? _taxFeeTotalAmount;
-  double? get taxFeeTotalAmount => _taxFeeTotalAmount;
-
-  DateTime? _startDate;
-
-  DateTime? get startDate => _startDate;
-  DateTime? _endDate;
-
-  DateTime? get endDate => _endDate;
-  final TimeOfDay _fixedTime = const TimeOfDay(hour: 12, minute: 0); // Fixed to 12 PM
-  TimeOfDay get fixedTime => _fixedTime;
-
-  Future<void> fetchVillaDetails(String id) async {
+  Future<void> fetchVillaDetails() async {
     _isLoading = true;
     notifyListeners();
     try {
-      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc(id).get();
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
 
       if (doc.exists) {
         _details = VillaDetailsModel.fromFirestore(doc.data() as Map<String, dynamic>);
@@ -48,7 +33,6 @@ class ProductDetailsProvider extends ChangeNotifier {
         Future.delayed(const Duration(milliseconds: 500));
         _isLoading = false;
 
-        getTotalAmount();
         notifyListeners();
       } else {
         _isLoading = false;
@@ -67,90 +51,7 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getTotalAmount() {
-    int dailyRent = int.parse(_details?.dailyRent ?? '0') * (dayCount ?? 0);
-    int cleaningFees = int.parse(_details?.cleaningFees ?? '0') * (dayCount ?? 0);
-
-    double tax = int.parse(_details?.tax ?? '0') / 100;
-    double dailyRentWithTax = dailyRent*tax;
-
-    _taxFeeTotalAmount = dailyRentWithTax;
-
-    int serviceFees = int.parse(_details?.serviceFees ?? '0');
-    int airportPicUp = int.parse(_details?.airportPickup ?? '0');
-    int extraBeds = int.parse(_details?.extraBeds ?? '0');
-
-
-    int oneTimeFees = (serviceFees + airportPicUp + extraBeds);
-
-    double totalFees = dailyRentWithTax + cleaningFees + oneTimeFees;
-
-    log(
-      "daily rent $dailyRent cleaning fees $cleaningFees service fees $serviceFees "
-          "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $dailyRentWithTax",
-    );
-
-    _totalAmount = totalFees.toString();
-    notifyListeners();
-  }
-
-  // Function to show Date Range Picker
-  Future<void> selectBookingDates(BuildContext context) async {
-    DateTime now = DateTime.now();
-    final DateTimeRange? picked = await showDateRangePicker(
-      context: context,
-      initialDateRange: _startDate != null && _endDate != null ? DateTimeRange(start: _startDate!, end: _endDate!) : DateTimeRange(start: now, end: now.add(const Duration(days: 1))),
-      firstDate: now,
-      lastDate: DateTime(2101),
-    );
-
-    if (picked != null) {
-      _startDate = picked.start;
-      _endDate = picked.end;
-      log("start date ${picked.start}");
-      log("end date ${picked.end}");
-      _dayCount = picked.end.difference(picked.start).inDays;
-      log("day count $_dayCount");
-      getTotalAmount();
-
-      notifyListeners();
-    }
-    notifyListeners();
-  }
-
-  // Function to show time pickers for start and end times
-  // Future<void> selectBookingTimes(BuildContext context) async {
-  //   final TimeOfDay? pickedStartTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: _startTime, // Default to 12 PM
-  //   );
-  //
-  //   if (pickedStartTime != null) {
-  //       _startTime = pickedStartTime;
-  //   }
-  //
-  //   final TimeOfDay? pickedEndTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: _endTime, // Default to 12 PM
-  //   );
-  //
-  //   if (pickedEndTime != null) {
-  //       _endTime = pickedEndTime;
-  //   }
-  // }
-
-  // Function to format the date and time
-  String formatDateTime(DateTime date,TimeOfDay time, BuildContext context) {
-    final formattedDate = '${date.day}/${date.month}/${date.year}';
-
-    final formattedTime = _fixedTime.format(context); // Always show 12 PM
-
-    log("date time: ${DateTime(date.year, date.month, date.day, _fixedTime.hour, _fixedTime.minute)}");
-
-    return '$formattedDate $formattedTime';
-  }
-
-/*List<Item> generateItems() {
+  /*List<Item> generateItems() {
     return [
       // Item(
       //   headerValue: 'Additional Info ',

@@ -5,18 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/providers/payment/payment_provider.dart';
-import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../widgets/on_process_button.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
-  final String? villaId;
-
-  const PaymentScreen({super.key, required this.villaId});
+  const PaymentScreen({super.key});
 
   @override
   ConsumerState<PaymentScreen> createState() => _PaymentScreenState();
@@ -33,7 +29,6 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final detailsController = ref.watch(detailsProvider);
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -153,9 +148,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                         onTap: () async {
                           final success = await _onValidate();
 
-                          if (success == true) {
+                          if( success == true) {
                             return true;
-                          } else {
+                          }else{
                             return false;
                           }
                         },
@@ -214,25 +209,15 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
       // formKey.currentState?.save();
 
       // String expiryDate = 'XX/XX';
-      final startDate = ref.read(detailsProvider).startDate;
-      final endDate = ref.read(detailsProvider).endDate;
-
-      final fixTimeFor12Pm = ref.read(detailsProvider).fixedTime;
-
 
       String date = convertToYearMonth(expiryDate);
-      String totalAmount = ref.read(detailsProvider).totalAmount ?? '0';
 
       final success = await ref.read(paymentProvider).processPayment(
             cardNumber: cardNumber.split(' ').join(),
             expirationDate: date,
             cvv: cvvCode,
-            totalAmount: double.parse(totalAmount),
+            totalAmount: 30,
             context: context,
-            villaID: widget.villaId ?? '',
-            bookingStartDate: DateTime(startDate!.year, startDate.month, startDate.day, fixTimeFor12Pm.hour, fixTimeFor12Pm.minute).toString(),
-            bookingEndDate: DateTime(endDate!.year, endDate.month, endDate.day, fixTimeFor12Pm.hour, fixTimeFor12Pm.minute).toString(),
-            dayCount: "${ref.read(detailsProvider).dayCount ?? 0}",
           );
 
       if (success == true) {

@@ -27,9 +27,6 @@ class VillaDetailsModel {
   final String serviceFees;
   final String title;
   final List<String> images;
-  final String? tax;
-  final String? discount;
-  final String? coupon;
 
   VillaDetailsModel({
     required this.adults,
@@ -60,9 +57,6 @@ class VillaDetailsModel {
     required this.serviceFees,
     required this.title,
     required this.images,
-    this.tax,
-    this.discount,
-    this.coupon,
   });
 
   factory VillaDetailsModel.fromFirestore(Map<String, dynamic> data) {
@@ -95,10 +89,6 @@ class VillaDetailsModel {
       serviceFees: data['service_fees'],
       title: data['title'],
       images: List<String>.from(data['images']),
-      tax: data['tax'] ?? '',
-      discount: data['discount'] ?? '',
-      coupon: data['coupon'] ?? '',
-
     );
   }
 }
