@@ -27,10 +27,13 @@ class VillaDetailsModel {
   final String serviceFees;
   final String title;
   final List<String> images;
+<<<<<<< HEAD
   final String? tax;
   final String? discount;
   final String? coupon;
   final String? location;
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
 
   VillaDetailsModel({
     required this.adults,
@@ -61,10 +64,13 @@ class VillaDetailsModel {
     required this.serviceFees,
     required this.title,
     required this.images,
+<<<<<<< HEAD
     this.tax,
     this.discount,
     this.coupon,
     this.location,
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
   });
 
   factory VillaDetailsModel.fromFirestore(Map<String, dynamic> data) {
@@ -97,11 +103,14 @@ class VillaDetailsModel {
       serviceFees: data['service_fees'],
       title: data['title'],
       images: List<String>.from(data['images']),
+<<<<<<< HEAD
       tax: data['tax'] ?? '',
       discount: data['discount'] ?? '',
       coupon: data['coupon'] ?? '',
       location: data['location'] ?? '',
 
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
     );
   }
 }

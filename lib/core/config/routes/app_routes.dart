@@ -63,6 +63,13 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (_) =>  PaymentScreen(villaId: arg,),
         );
+<<<<<<< HEAD
+=======
+      case RouteName.paymentScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PaymentScreen(),
+        );
+>>>>>>> 90d7495 (villa details done and payment implemented)
       // case RouteName.signUp:
       //   return MaterialPageRoute(
       //     builder: (_) => const SignUpScreen(),

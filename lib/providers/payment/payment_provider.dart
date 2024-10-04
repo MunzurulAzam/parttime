@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
+<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
@@ -17,12 +20,15 @@ class PaymentProvider with ChangeNotifier {
     required String cvv,
     required double totalAmount,
     required BuildContext context,
+<<<<<<< HEAD
     required String villaID,
     required String bookingStartDate,
     required String bookingEndDate,
     required String dayCount,
     required String villaName,
     required String villaLocation,
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
   }) async {
 
     log("hit server");
@@ -43,6 +49,7 @@ class PaymentProvider with ChangeNotifier {
 
     try {
       final response = await http.post(url, headers: headers, body: body);
+<<<<<<< HEAD
 
       log('Response: ${response.statusCode}');
 
@@ -70,14 +77,23 @@ class PaymentProvider with ChangeNotifier {
           'is_booked': true,
         });
 
+=======
+      _isProcessing = false;
+      log('Response: ${response.statusCode}');
+
+      if (response.statusCode == 200) {
+>>>>>>> 90d7495 (villa details done and payment implemented)
         // Success
         log('Payment Success: ${response.body}');
         ScaffoldMessenger.of(context).showSnackBar(
            SnackBar(content: Text('${jsonDecode(response.body)['message']}')),
         );
+<<<<<<< HEAD
 
         _isProcessing = false;
 
+=======
+>>>>>>> 90d7495 (villa details done and payment implemented)
         notifyListeners();
         return true;
       } else {
