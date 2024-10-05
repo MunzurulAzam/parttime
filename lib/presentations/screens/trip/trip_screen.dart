@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/assets/app_images.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/core/helper/date_formater.dart';
+import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 import 'package:hotel_management/providers/booking_provider/booking_provider.dart';
 
@@ -41,13 +42,13 @@ class _TripScreensState extends ConsumerState<TripScreens> {
               } else {
                 final bookings = bookingProvider0.bookings;
                 return Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 10.w),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: bookings.length,
-                    itemBuilder: (context, index) {       
+                    itemBuilder: (context, index) {
                       final booking = bookings[index];
                       String formattedDateStart = formatDate(booking['booking_start_date']);
                       String formattedDateEnd = formatDate(booking['booking_end_date']);
@@ -61,47 +62,65 @@ class _TripScreensState extends ConsumerState<TripScreens> {
                           children: [
                             5.verticalSpace,
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AutoSizeText('Name : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' ${booking['user_name']}', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp),maxLines: 1, overflow: TextOverflow.clip,),
+                                AutoSizeText(
+                                  ' ${booking['user_name']}',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
+                                AutoSizeText(
+                                  ' ${booking['user_email']}',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
                               ],
                             ),
-                            5.verticalSpace,
-                             Row(
+                            2.verticalSpace,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AutoSizeText('Email : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp), maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' ${booking['user_email']}', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp),maxLines: 1, overflow: TextOverflow.clip,),
+                                AutoSizeText(
+                                  '\$${booking['total_amount']}',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
+                                AutoSizeText(
+                                  ' ${booking['day_count']} days',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
                               ],
                             ),
-                            5.verticalSpace,
-                             Row(
+                           2.verticalSpace,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                AutoSizeText('Total Amount : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp), maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' ${booking['total_amount']}', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp), maxLines: 1, overflow: TextOverflow.clip,),
+                                AutoSizeText(
+                                  '$formattedDateStart',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
+                                AutoSizeText(
+                                  'to',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 12.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
+                                AutoSizeText(
+                                  '$formattedDateEnd',
+                                  style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 13.sp),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.clip,
+                                ),
                               ],
                             ),
-                            5.verticalSpace,
-                             Row(
-                              children: [
-                                AutoSizeText('Start Date : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' $formattedDateStart', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                              ],
-                            ),
-                            5.verticalSpace,
-                             Row(
-                              children: [
-                                AutoSizeText('End Date : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' $formattedDateEnd', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                              ],
-                            ),
-                             5.verticalSpace,
-                             Row(
-                              children: [
-                                AutoSizeText('Day Count : ', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 17.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                                AutoSizeText(' ${booking['day_count']}', style: TextStyle(color: AppColors.kPrimaryColor, fontWeight: FontWeight.bold, fontSize: 16.sp),maxLines: 1, overflow: TextOverflow.clip,),
-                              ],
-                            ),
-                            5.verticalSpace,
+                          5.verticalSpace,
                           ],
                         ),
                       );
