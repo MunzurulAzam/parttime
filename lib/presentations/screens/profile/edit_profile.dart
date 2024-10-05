@@ -62,8 +62,14 @@ _loadUserData();
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: const Text(''),
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: AppColors.kPrimaryColor,
+          title: const Text(
+            'Update Profile',
+            style: TextStyle(color: Colors.white),
+          ),
+          centerTitle: true,
+          elevation: 0,
         ),
         body: Form(
           child: Padding(

@@ -36,14 +36,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: AutoSizeText(
+        backgroundColor: AppColors.kPrimaryColor,
+        title: const Text(
           'Profile',
-          style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
+          style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: Column(
         children: [
+          SizedBox(height: 10.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
             child: Row(
