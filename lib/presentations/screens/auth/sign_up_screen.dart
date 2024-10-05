@@ -121,7 +121,7 @@ class _LogInScreenState extends ConsumerState<SignUpScreen> {
               onTap: () async {
                 final success = await ref
                     .read(authProvider.notifier)
-                    .signUpWithEmail(nameTextEditingController.text, emailTextEditingController.text, paswordTextEditingController.text);
+                    .signUpWithEmail(nameTextEditingController.text, emailTextEditingController.text, paswordTextEditingController.text,context);
                 return success;
               },
               onDone: (isSuccess) {

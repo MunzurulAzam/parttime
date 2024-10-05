@@ -133,9 +133,13 @@ class ProductDetailsProvider extends ChangeNotifier {
   // }
 
   // Function to format the date and time
-  String formatDateTime(DateTime date, TimeOfDay time, BuildContext context) {
+  String formatDateTime(DateTime date,TimeOfDay time, BuildContext context) {
     final formattedDate = '${date.day}/${date.month}/${date.year}';
+
     final formattedTime = _fixedTime.format(context); // Always show 12 PM
+
+    log("date time: ${DateTime(date.year, date.month, date.day, _fixedTime.hour, _fixedTime.minute)}");
+
     return '$formattedDate $formattedTime';
   }
 

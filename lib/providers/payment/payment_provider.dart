@@ -18,6 +18,9 @@ class PaymentProvider with ChangeNotifier {
     required double totalAmount,
     required BuildContext context,
     required String villaID,
+    required String bookingStartDate,
+    required String bookingEndDate,
+    required String dayCount,
   }) async {
 
     log("hit server");
@@ -52,6 +55,9 @@ class PaymentProvider with ChangeNotifier {
           'user_name': FirebaseAuth.instance.currentUser?.displayName,
           'total_amount': totalAmount.round().toString(),
           'created_at': DateTime.now().toString(),
+          'booking_start_date': bookingStartDate,
+          'booking_end_date': bookingEndDate,
+          'day_count': dayCount,
         });
 
         // update villa_details is_booked to true

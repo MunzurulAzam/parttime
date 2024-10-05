@@ -45,7 +45,7 @@ Future<User?> signInWithGoogle() async {
           'name': googleUser.displayName,
           'email': googleUser.email,
           'uid': _currentUser!.uid,
-          'createdAt': FieldValue.serverTimestamp(),
+          'createdAt': DateTime.now().toString(),
         });
       }
 
@@ -60,7 +60,7 @@ Future<User?> signInWithGoogle() async {
 }
 
   //!--------------------------------firebase auth sign-up with email
-Future<bool> signUpWithEmail(String name, String email, String password) async {
+Future<bool> signUpWithEmail(String name, String email, String password,BuildContext context) async {
   try {
     // Attempt to create a new user with email and password
     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -80,9 +80,14 @@ Future<bool> signUpWithEmail(String name, String email, String password) async {
         'name': name,
         'email': email,
         'uid': _currentUser!.uid,
-        'createdAt': FieldValue.serverTimestamp(),
+        'createdAt': DateTime.now().toString(),
       });
 
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Sign up Successfully, Please login to continue"),
+        ),
+      );
       // Notify listeners if you're using a provider or similar state management solution
       notifyListeners();
 
@@ -95,12 +100,17 @@ Future<bool> signUpWithEmail(String name, String email, String password) async {
   } catch (e) {
     // Log the error and return false for failure
     log(e.toString());
+    ScaffoldMessenger.of(context).showSnackBar(
+       SnackBar(
+        content: Text(e.toString()),
+      ),
+    );
     return false;
   }
 }
 
   //!--------------------------------firebase auth sign-in with email
-Future<bool> signInWithEmail(String email, String password) async {
+Future<bool> signInWithEmail(String email, String password,BuildContext context) async {
   try {
     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
@@ -121,7 +131,7 @@ Future<bool> signInWithEmail(String email, String password) async {
         await FirebaseFirestore.instance.collection('users').doc(_currentUser!.uid).set({
           'email': email,
           'uid': _currentUser!.uid,
-          'createdAt': FieldValue.serverTimestamp(),
+          'createdAt': DateTime.now().toString(),
         });
       }
 
@@ -133,10 +143,24 @@ Future<bool> signInWithEmail(String email, String password) async {
   } on FirebaseAuthException catch (e) {
     // Handle specific Firebase exceptions
     if (e.code == 'user-not-found') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('No user found for that email.'),
+        ),
+      );
       log('No user found for that email.');
     } else if (e.code == 'wrong-password') {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Wrong password '),
+        ),
+      );
       log('Wrong password provided.');
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message ?? 'An unknown error occurred'),
+          ),);
       log(e.message ?? 'An unknown error occurred');
     }
     return false;
