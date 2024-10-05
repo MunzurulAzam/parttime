@@ -31,11 +31,13 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: AutoSizeText(
-          'Favorite',
-          style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
+        backgroundColor: AppColors.kPrimaryColor,
+        title: const Text(
+          'Favourite List',
+          style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 18.w),
