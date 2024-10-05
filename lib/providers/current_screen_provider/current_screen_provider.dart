@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hotel_management/core/constants/strings/collections.dart';
 import 'package:hotel_management/data/models/home/carousel_image_model.dart';
@@ -76,10 +77,14 @@ class HomeScreenProvider extends ChangeNotifier {
   }
 
 
-  // Method to add villa information to Firestore when favorite is clicked
-  Future<void> addVillaToFavorites(VillaModel villa) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  addFavorite (bool value){
 
+  }
+
+  // Method to add villa information to Firestore when favorite is clicked
+  Future<void> addVillaToFavorites(VillaModel villa,BuildContext context) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    villa.isFavourite = true;
     try {
       // Add villa to the favouriteVillasCollection
       await _firestore.collection(AllFirebaseCollections.favouriteVillasCollection)
@@ -90,11 +95,30 @@ class HomeScreenProvider extends ChangeNotifier {
       await _firestore.collection(AllFirebaseCollections.allVillasCollection)
           .doc(villa.id)
           .update({'is_favourite': true});
-
+      notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text('${villa.name} added to favorites')));
       log('Villa added to favorites and updated: ${villa.name}');
     } catch (e) {
       log('Error adding villa to favorites: $e');
     }
+  }
+
+  // Method to remove villa from favorites
+  void removeVillaFromFavorites(VillaModel villa, BuildContext context) {
+    // Mark the villa as not a favorite
+    villa.isFavourite = false;
+
+
+    // Optionally: Update Firestore or any other backend
+    FirebaseFirestore.instance
+        .collection('all_villas')
+        .doc(villa.id)
+        .update({'is_favourite': false});
+
+    notifyListeners(); // Notify UI of changes
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${villa.name} removed from favorites!')),
+    );
   }
 
 
