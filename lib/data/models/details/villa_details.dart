@@ -30,6 +30,7 @@ class VillaDetailsModel {
   final String? tax;
   final String? discount;
   final String? coupon;
+  final String? location;
 
   VillaDetailsModel({
     required this.adults,
@@ -63,6 +64,7 @@ class VillaDetailsModel {
     this.tax,
     this.discount,
     this.coupon,
+    this.location,
   });
 
   factory VillaDetailsModel.fromFirestore(Map<String, dynamic> data) {
@@ -98,6 +100,7 @@ class VillaDetailsModel {
       tax: data['tax'] ?? '',
       discount: data['discount'] ?? '',
       coupon: data['coupon'] ?? '',
+      location: data['location'] ?? '',
 
     );
   }

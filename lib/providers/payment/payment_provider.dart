@@ -21,6 +21,8 @@ class PaymentProvider with ChangeNotifier {
     required String bookingStartDate,
     required String bookingEndDate,
     required String dayCount,
+    required String villaName,
+    required String villaLocation,
   }) async {
 
     log("hit server");
@@ -58,6 +60,9 @@ class PaymentProvider with ChangeNotifier {
           'booking_start_date': bookingStartDate,
           'booking_end_date': bookingEndDate,
           'day_count': dayCount,
+          'villa_id': villaID ?? "",
+          'villa_name' : villaName,
+          'villa_location' : villaLocation,
         });
 
         // update villa_details is_booked to true
