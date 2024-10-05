@@ -38,6 +38,7 @@ class PaymentProvider with ChangeNotifier {
     required String villaName,
     required String villaLocation,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
@@ -47,6 +48,8 @@ class PaymentProvider with ChangeNotifier {
 =======
     required String villaID,
 >>>>>>> e434bd3 (booking data stored to db)
+=======
+>>>>>>> cf3035c (booking design updated)
   }) async {
 
     log("hit server");
@@ -124,6 +127,12 @@ class PaymentProvider with ChangeNotifier {
           'user_name': FirebaseAuth.instance.currentUser?.displayName,
           'total_amount': totalAmount.round().toString(),
           'created_at': DateTime.now().toString(),
+          'booking_start_date': bookingStartDate,
+          'booking_end_date': bookingEndDate,
+          'day_count': dayCount,
+          'villa_id': villaID ?? "",
+          'villa_name' : villaName,
+          'villa_location' : villaLocation,
         });
 
         // update villa_details is_booked to true

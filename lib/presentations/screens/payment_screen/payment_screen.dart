@@ -57,6 +57,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 >>>>>>> 8e2bbe7 (booking design updated)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cf3035c (booking design updated)
   @override
   void initState() {
     log("villa id ${widget.villaId}");
@@ -65,12 +68,15 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 8e2bbe7 (booking design updated)
 =======
 >>>>>>> e434bd3 (booking data stored to db)
+=======
+>>>>>>> cf3035c (booking design updated)
   bool useGlassMorphism = false;
   String cardNumber = '';
   String expiryDate = '';
@@ -292,6 +298,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
       // String expiryDate = 'XX/XX';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cf3035c (booking design updated)
       final startDate = ref.read(detailsProvider).startDate;
       final endDate = ref.read(detailsProvider).endDate;
 
@@ -327,6 +336,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             villaName: ref.read(detailsProvider).details?.title ?? '',
             villaLocation: ref.read(detailsProvider).details?.location ?? '',
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             totalAmount: 30,
             context: context,
@@ -342,6 +352,8 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             context: context,
             villaID: widget.villaId ?? '',
 >>>>>>> e434bd3 (booking data stored to db)
+=======
+>>>>>>> cf3035c (booking design updated)
           );
 
       if (success == true) {

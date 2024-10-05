@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 =======
@@ -32,14 +33,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 =======
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+=======
+>>>>>>> cf3035c (booking design updated)
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/core/helper/date_formater.dart';
-import 'package:hotel_management/presentations/widgets/on_process_button.dart';
+import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/providers/booking_provider/booking_provider.dart';
+<<<<<<< HEAD
 >>>>>>> f036bf5 (booking list data add done)
+=======
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+>>>>>>> cf3035c (booking design updated)
 
 class TripScreens extends ConsumerStatefulWidget {
   const TripScreens({super.key});
@@ -55,6 +62,7 @@ class _TripScreensState extends ConsumerState<TripScreens> {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 834c035 (booking list data add done)
@@ -63,13 +71,18 @@ class _TripScreensState extends ConsumerState<TripScreens> {
 >>>>>>> 8e2bbe7 (booking design updated)
 =======
 >>>>>>> f036bf5 (booking list data add done)
+=======
+
+>>>>>>> cf3035c (booking design updated)
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const AutoSizeText(
+        backgroundColor: AppColors.kPrimaryColor,
+        title: const Text(
           'Booking List',
           style: TextStyle(color: Colors.white),
         ),
+        centerTitle: true,
+        elevation: 0,
       ),
       backgroundColor: Colors.black,
 <<<<<<< HEAD
@@ -80,8 +93,9 @@ class _TripScreensState extends ConsumerState<TripScreens> {
 <<<<<<< HEAD
 =======
       body: Padding(
-        padding: EdgeInsets.only(top: 10.h),
+        padding: EdgeInsets.all(16.w),
         child: FutureBuilder(
+<<<<<<< HEAD
 >>>>>>> f036bf5 (booking list data add done)
             future: bookingProvider0.fetchBookings(),
             builder: (context, snapshot) {
@@ -163,6 +177,8 @@ class _TripScreensState extends ConsumerState<TripScreens> {
               }
             }),
 =======
+=======
+>>>>>>> cf3035c (booking design updated)
           future: bookingProvider0.fetchBookings(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -196,6 +212,7 @@ class _TripScreensState extends ConsumerState<TripScreens> {
                           // Booking header
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+<<<<<<< HEAD
 =======
       body:                 Padding(
         padding:  EdgeInsets.only(top: 10.h),
@@ -236,10 +253,35 @@ class _TripScreensState extends ConsumerState<TripScreens> {
                                           );
                                         },
                                       ),
+=======
+                            children: [
+                              CircleAvatar(
+                                backgroundImage:
+                                const NetworkImage("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"),
+                                radius: 20.r,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    booking['user_name'],
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.sp,
+                                      color: AppColors.kPrimaryColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    booking['user_email'],
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: Colors.grey,
+>>>>>>> cf3035c (booking design updated)
                                     ),
                                   ),
                                 ],
                               ),
+<<<<<<< HEAD
                               Positioned(
                                 bottom: 7.h,
                                 left: 0, // Position it to the left
@@ -301,6 +343,67 @@ class _TripScreensState extends ConsumerState<TripScreens> {
                             ],
                           ),
 <<<<<<< HEAD
+=======
+                              Chip(
+                                label: Text(
+                                  '${booking['day_count']} days',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                backgroundColor: AppColors.kPrimaryColor,
+                              ),
+                            ],
+                          ),
+                          Divider(height: 20.h, thickness: 1),
+                          // Booking details
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Start Date:',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                  Text(
+                                    formattedDateStart,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'End Date:',
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h),
+                                  Text(
+                                    formattedDateEnd,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+>>>>>>> cf3035c (booking design updated)
                           SizedBox(height: 10.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -373,6 +476,7 @@ class _TripScreensState extends ConsumerState<TripScreens> {
             }
           },
         ),
+<<<<<<< HEAD
 >>>>>>> 8e2bbe7 (booking design updated)
 =======
 =======
@@ -448,6 +552,8 @@ class _TripScreensState extends ConsumerState<TripScreens> {
               }
             }),
 >>>>>>> f036bf5 (booking list data add done)
+=======
+>>>>>>> cf3035c (booking design updated)
       ),
     );
   }
