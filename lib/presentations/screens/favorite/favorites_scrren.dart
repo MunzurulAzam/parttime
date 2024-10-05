@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 
-import '../../../core/constants/assets/app_images.dart';
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/constants/assets/app_images.dart';
 import '../../../providers/favourite_provider/favourite_provider.dart';
@@ -170,22 +169,16 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                               Positioned(
                                   top: 15.h,
                                   right: 15.w,
-                                  child: InkWell(
-                                    onTap: (){
-                                      provider.deleteVillaFromFavorites(provider.favouriteListValue[index].id ?? '',context);
-                                      provider.fetchAllFavourites();
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.kWhiteColor,
-                                        borderRadius: BorderRadius.circular(20.r),
-                                      ),
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: AppColors.kPrimaryColor,
-                                        size: 20.r,
-                                      ),
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.kWhiteColor,
+                                      borderRadius: BorderRadius.circular(20.r),
+                                    ),
+                                    child: Icon(
+                                      Icons.favorite,
+                                      color: AppColors.kPrimaryColor,
+                                      size: 20.r,
                                     ),
                                   ))
                             ],
