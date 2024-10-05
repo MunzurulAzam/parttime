@@ -5,20 +5,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/providers/payment/payment_provider.dart';
+import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../widgets/on_process_button.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
-  const PaymentScreen({super.key});
+  final String? villaId;
+
+  const PaymentScreen({super.key, required this.villaId});
 
   @override
   ConsumerState<PaymentScreen> createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends ConsumerState<PaymentScreen> {
+
   bool useGlassMorphism = false;
   String cardNumber = '';
   String expiryDate = '';
@@ -29,6 +34,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final detailsController = ref.watch(detailsProvider);
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -148,9 +154,9 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                         onTap: () async {
                           final success = await _onValidate();
 
-                          if( success == true) {
+                          if (success == true) {
                             return true;
-                          }else{
+                          } else {
                             return false;
                           }
                         },
@@ -211,13 +217,15 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
       // String expiryDate = 'XX/XX';
 
       String date = convertToYearMonth(expiryDate);
+      String totalAmount = ref.read(detailsProvider).totalAmount ?? '0';
 
       final success = await ref.read(paymentProvider).processPayment(
             cardNumber: cardNumber.split(' ').join(),
             expirationDate: date,
             cvv: cvvCode,
-            totalAmount: 30,
+            totalAmount: double.parse(totalAmount),
             context: context,
+            villaID: widget.villaId ?? '',
           );
 
       if (success == true) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/presentations/screens/auth/login_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/sign_up_screen.dart';
 import 'package:hotel_management/presentations/screens/auth/starter.dart';
@@ -11,6 +12,7 @@ import 'package:hotel_management/presentations/screens/home/navigation_screen.da
 import 'package:hotel_management/presentations/screens/payment_screen/payment_screen.dart';
 import 'package:hotel_management/presentations/screens/profile/edit_profile.dart';
 import 'package:hotel_management/presentations/screens/trip/trip_screen.dart';
+import '../../../data/models/home/villa_model.dart';
 import '../../../presentations/screens/splash/splash_screen.dart';
 import '../../exceptions/route_exceptions.dart';
 part 'route_name.dart';
@@ -52,12 +54,14 @@ class AppRoutes {
           builder: (_) => const SignUpScreen(),
         );
       case RouteName.detailsScreen:
+        final arg = settings.arguments as VillaModel;
         return MaterialPageRoute(
-          builder: (_) => const DetailsScreen(),
+          builder: (_) =>  DetailsScreen(model: arg),
         );
       case RouteName.paymentScreen:
+        final arg = settings.arguments as String;
         return MaterialPageRoute(
-          builder: (_) => const PaymentScreen(),
+          builder: (_) =>  PaymentScreen(villaId: arg,),
         );
       // case RouteName.signUp:
       //   return MaterialPageRoute(
