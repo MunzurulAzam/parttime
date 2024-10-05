@@ -5,7 +5,7 @@ class VillaModel {
   final String? location;
   final String? createdAt;
   final String? price;
-  final bool? isFavourite;
+    bool? isFavourite;
 
   VillaModel({
     this.id,
@@ -13,7 +13,7 @@ class VillaModel {
     this.name,
     this.location,
     this.createdAt,
-    this.isFavourite,
+    this.isFavourite = false,
     this.price,
   });
 
