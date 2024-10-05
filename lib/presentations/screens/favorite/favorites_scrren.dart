@@ -169,16 +169,22 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                               Positioned(
                                   top: 15.h,
                                   right: 15.w,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.kWhiteColor,
-                                      borderRadius: BorderRadius.circular(20.r),
-                                    ),
-                                    child: Icon(
-                                      Icons.favorite,
-                                      color: AppColors.kPrimaryColor,
-                                      size: 20.r,
+                                  child: InkWell(
+                                    onTap: (){
+                                      provider.deleteVillaFromFavorites(provider.favouriteListValue[index].id ?? '',context);
+                                      provider.fetchAllFavourites();
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.kWhiteColor,
+                                        borderRadius: BorderRadius.circular(20.r),
+                                      ),
+                                      child: Icon(
+                                        Icons.favorite,
+                                        color: AppColors.kPrimaryColor,
+                                        size: 20.r,
+                                      ),
                                     ),
                                   ))
                             ],
