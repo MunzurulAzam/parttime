@@ -15,8 +15,8 @@ class HomeScreenProvider extends ChangeNotifier {
   List<CarouselModel> _carouselList = [];
   List<CarouselModel> get carouselList => _carouselList;
 
-  List<TopVillaModel> _topVillaList = [];
-  List<TopVillaModel> get topVillaList => _topVillaList;
+  List<VillaModel> _topVillaList = [];
+  List<VillaModel> get topVillaList => _topVillaList;
 
   List<VillaModel> _allVillaList = [];
   List<VillaModel> get allVillaList => _allVillaList;
@@ -45,8 +45,8 @@ class HomeScreenProvider extends ChangeNotifier {
       final snapshot = await FirebaseFirestore.instance.collection(AllFirebaseCollections.topVillasCollection).get();
 
       // Map each document to an ImageModel instance
-      final List<TopVillaModel> topVillas = snapshot.docs.map((doc) {
-        return TopVillaModel.fromMap(doc.data(), doc.id);
+      final List<VillaModel> topVillas = snapshot.docs.map((doc) {
+        return VillaModel.fromMap(doc.data(), doc.id);
       }).toList();
 
       _topVillaList = topVillas; // Update state with the list of ImageModel objects
@@ -104,14 +104,18 @@ class HomeScreenProvider extends ChangeNotifier {
   }
 
   // Method to remove villa from favorites
-  void removeVillaFromFavorites(VillaModel villa, BuildContext context) {
+  void removeVillaFromFavorites(VillaModel villa, BuildContext context)async {
     // Mark the villa as not a favorite
     villa.isFavourite = false;
 
 
     // Optionally: Update Firestore or any other backend
-    FirebaseFirestore.instance
-        .collection('all_villas')
+    await FirebaseFirestore.instance.collection(AllFirebaseCollections.favouriteVillasCollection)
+        .doc(villa.id)
+        .delete();
+
+    // Update the is_favourite field in the all_villas collection
+    await FirebaseFirestore.instance.collection(AllFirebaseCollections.allVillasCollection)
         .doc(villa.id)
         .update({'is_favourite': false});
 
