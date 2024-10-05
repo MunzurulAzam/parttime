@@ -409,6 +409,15 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       borderRadius: BorderRadius.zero,
                       child: AutoSizeText('Continue', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
                       onTap: () async {
+                        if(detailsVilaProvider.startDate == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Please select date'),
+                            ),
+                          );
+                          return;
+                        }
+
                         detailsVilaProvider.getTotalAmount();
                         _customModalBottomSheet(
                           dailyRent: detailsVilaProvider.details?.dailyRent ?? '0',
