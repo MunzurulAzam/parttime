@@ -24,6 +24,13 @@ class PaymentScreen extends ConsumerStatefulWidget {
 
 class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
+  @override
+  void initState() {
+    log("villa id ${widget.villaId}");
+    super.initState();
+  }
+
+
   bool useGlassMorphism = false;
   String cardNumber = '';
   String expiryDate = '';
@@ -215,6 +222,10 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
       // formKey.currentState?.save();
 
       // String expiryDate = 'XX/XX';
+      final startDate = ref.read(detailsProvider).startDate;
+      final endDate = ref.read(detailsProvider).endDate;
+
+      final fixTimeFor12Pm = ref.read(detailsProvider).fixedTime;
 
       String date = convertToYearMonth(expiryDate);
       String totalAmount = ref.read(detailsProvider).totalAmount ?? '0';
@@ -226,6 +237,11 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             totalAmount: double.parse(totalAmount),
             context: context,
             villaID: widget.villaId ?? '',
+            bookingStartDate: DateTime(startDate!.year, startDate.month, startDate.day, fixTimeFor12Pm.hour, fixTimeFor12Pm.minute).toString(),
+            bookingEndDate: DateTime(endDate!.year, endDate.month, endDate.day, fixTimeFor12Pm.hour, fixTimeFor12Pm.minute).toString(),
+            dayCount: "${ref.read(detailsProvider).dayCount ?? 0}",
+            villaName: ref.read(detailsProvider).details?.title ?? '',
+            villaLocation: ref.read(detailsProvider).details?.location ?? '',
           );
 
       if (success == true) {
