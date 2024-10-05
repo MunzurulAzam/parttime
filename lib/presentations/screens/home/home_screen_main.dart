@@ -523,8 +523,8 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                     return Stack(
                       children: [
                         OnProcessButtonWidget(
-                          onDone: (_) {
-                            Navigator.pushNamed(context, RouteName.detailsScreen);
+                          onTap: () {
+                            Navigator.pushNamed(context, RouteName.detailsScreen, arguments: homeProvider.topVillaList[index]);
                           },
                           backgroundColor: Colors.transparent,
                           width: 130.w,
