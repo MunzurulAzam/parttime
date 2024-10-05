@@ -597,7 +597,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: (){
-                        Navigator.pushNamed(context, RouteName.detailsScreen);
+                        Navigator.pushNamed(context, RouteName.detailsScreen,arguments: homeProvider.allVillaList[index]);
                       },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 10.h, right: 10.w),
@@ -698,6 +698,9 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                                           ],
                                         ),
                                         OnProcessButtonWidget(
+                                          onTap: (){
+                                            Navigator.pushNamed(context, RouteName.detailsScreen,arguments: homeProvider.allVillaList[index]);
+                                          },
                                           height: 20.h,
                                           backgroundColor: AppColors.kPrimaryColor,
                                           child: AutoSizeText(

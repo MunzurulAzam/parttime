@@ -16,14 +16,21 @@ import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
+import '../../../data/models/home/villa_model.dart';
+
 class DetailsScreen extends ConsumerStatefulWidget {
-  const DetailsScreen({super.key});
+  VillaModel model;
+   DetailsScreen({super.key,required this.model});
+
 
   @override
   ConsumerState<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
+
+
+
   @override
   void initState() {
     loadData();
@@ -32,7 +39,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
   loadData() async {
     Future(() {
-      ref.read(detailsProvider).fetchVillaDetails();
+      ref.read(detailsProvider).fetchVillaDetails(widget.model.id ?? '');
     });
   }
 
@@ -374,7 +381,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   },
                   onDone: (value) {
                     if (value == true) {
-                      Navigator.pushNamed(context, RouteName.paymentScreen);
+                      // log("amount ${detailsVilaProvider.totalAmount()}");
+                      Navigator.pushNamed(context, RouteName.paymentScreen,arguments: detailsVilaProvider.details?.id);
                     }
                   },
                 )
