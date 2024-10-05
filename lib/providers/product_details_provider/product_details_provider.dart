@@ -16,12 +16,14 @@ class ProductDetailsProvider extends ChangeNotifier {
 
   VillaDetailsModel? get details => _details;
 
+  String? _totalAmount;
+  String? get totalAmount => _totalAmount;
 
-  Future<void> fetchVillaDetails() async {
+  Future<void> fetchVillaDetails(String id) async {
     _isLoading = true;
     notifyListeners();
     try {
-      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc(id).get();
 
       if (doc.exists) {
         _details = VillaDetailsModel.fromFirestore(doc.data() as Map<String, dynamic>);
@@ -29,6 +31,7 @@ class ProductDetailsProvider extends ChangeNotifier {
         Future.delayed(const Duration(milliseconds: 500));
         _isLoading = false;
 
+        getTotalAmount();
         notifyListeners();
       } else {
         _isLoading = false;
@@ -45,6 +48,15 @@ class ProductDetailsProvider extends ChangeNotifier {
   void togglePanel(int index) {
     items[index].isExpanded = !items[index].isExpanded;
     notifyListeners();
+  }
+
+  void getTotalAmount() {
+    int dailyRent = int.parse(_details?.dailyRent ?? '0');
+    int cleaningFees = int.parse(_details?.cleaningFees ?? '0');
+    int serviceFees = int.parse(_details?.serviceFees ?? '0');
+    int airportPicUp = int.parse(_details?.airportPickup ?? '0');
+    int extraBeds = int.parse(_details?.extraBeds ?? '0');
+    _totalAmount = (dailyRent + cleaningFees + serviceFees + airportPicUp + extraBeds).toString();
   }
 
   /*List<Item> generateItems() {
