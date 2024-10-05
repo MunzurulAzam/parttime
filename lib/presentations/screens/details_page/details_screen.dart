@@ -84,7 +84,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   top: 25.h,
                                   right: 5.w,
                                   child: OnProcessButtonWidget(
-                                    onTap: (){
+                                    onTap: () {
                                       if (widget.model.isFavourite == true) {
                                         // If it's already a favorite, remove it
                                         homeProvider.removeVillaFromFavorites(widget.model, context);
@@ -97,7 +97,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
                                     borderRadius: BorderRadius.circular(30.r),
                                     child: Icon(
-                                        widget.model.isFavourite == true ? Icons.favorite : Icons.favorite_outline,
+                                      widget.model.isFavourite == true ? Icons.favorite : Icons.favorite_outline,
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ),
@@ -151,10 +151,29 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                       Icon(Icons.calendar_month, color: Theme.of(context).primaryColor),
                                       const Spacer(),
                                       InkWell(
-                                          overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
-                                          child: AutoSizeText('Change', style: TextStyle(fontSize: 14.sp, color: Theme.of(context).scaffoldBackgroundColor))),
+                                        onTap: () {
+                                          detailsVilaProvider.selectBookingDates(context);
+                                        },
+                                        overlayColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+                                        child: AutoSizeText(
+                                          'Change',
+                                          style: TextStyle(
+                                            fontSize: 14.sp,
+                                            color: Theme.of(context).scaffoldBackgroundColor,
+                                          ),
+                                        ),
+                                      ),
                                     ],
-                                  )
+                                  ),
+                                  15.verticalSpace,
+                                  if (detailsVilaProvider.startDate != null && detailsVilaProvider.endDate != null)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                                      child: AutoSizeText(
+                                        "Selected booking date: \n${detailsVilaProvider.formatDateTime(detailsVilaProvider.startDate!, detailsVilaProvider.fixedTime, context)} to ${detailsVilaProvider.formatDateTime(detailsVilaProvider.endDate!, detailsVilaProvider.fixedTime, context)}",
+                                        style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor),
+                                      ),
+                                    ),
                                 ],
                               ),
                             ),
@@ -390,18 +409,214 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       borderRadius: BorderRadius.zero,
                       child: AutoSizeText('Continue', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
                       onTap: () async {
-                        return true;
-                      },
-                      onDone: (value) {
-                        if (value == true) {
-                          // log("amount ${detailsVilaProvider.totalAmount()}");
-                          Navigator.pushNamed(context, RouteName.paymentScreen, arguments: detailsVilaProvider.details?.id);
-                        }
+                        detailsVilaProvider.getTotalAmount();
+                        _customModalBottomSheet(
+                          dailyRent: detailsVilaProvider.details?.dailyRent ?? '0',
+                          cleaningFees: detailsVilaProvider.details?.cleaningFees ?? '0',
+                          serviceFees: detailsVilaProvider.details?.serviceFees ?? '0',
+                          airportPickup: detailsVilaProvider.details?.airportPickup ?? '0',
+                          extraBeds: detailsVilaProvider.details?.extraBeds ?? '0',
+                          tax: detailsVilaProvider.details?.tax ?? '0',
+                          detailsVilaProvider: detailsVilaProvider,
+                        );
                       },
                     )
                   ],
                 ),
     );
+  }
+
+  Future<void> _customModalBottomSheet({
+    String? dailyRent,
+    String? cleaningFees,
+    String? serviceFees,
+    String? airportPickup,
+    String? extraBeds,
+    String? tax,
+    required ProductDetailsProvider detailsVilaProvider,
+  }) {
+    return showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return Container(
+          margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          height: 350.h,
+          child: SizedBox.expand(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          color: Colors.black,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AutoSizeText(
+                              'Villa',
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                            AutoSizeText(
+                              "Per day's rent",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                            AutoSizeText(
+                              "Day's",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                            AutoSizeText(
+                              "Subtotal",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 120,
+                              child: AutoSizeText(
+                                maxLines: 3,
+                                detailsVilaProvider.details?.title ?? '',
+                                style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: AutoSizeText(
+                              "\$${dailyRent ?? '\$0'}",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: AutoSizeText(
+                              "${detailsVilaProvider.dayCount ?? 0}",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: AutoSizeText(
+                                "\$${(detailsVilaProvider.dayCount ?? 0) * int.parse(dailyRent ?? '0')}",
+                                style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      SizedBox(height: 8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 1,
+                            child: SizedBox(
+                              width: 120,
+                              child: AutoSizeText(
+                                maxLines: 3,
+                                'Cleaning Fees',
+                                style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: AutoSizeText(
+                              "\$${cleaningFees ?? '\$0'}",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: AutoSizeText(
+                              "${detailsVilaProvider.dayCount ?? 0}",
+                              style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                            ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: AutoSizeText(
+                                "\$${int.parse(cleaningFees ?? '0') * (detailsVilaProvider.dayCount ?? 0)}",
+                                style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  
+                  singleItemFees(context, serviceFees, 'Service Fees',),
+                  singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
+                  singleItemFees(context, extraBeds, 'Extra Beds Fee'),
+                  singleItemFees(context, tax, 'Tax(%)',fromTax: true ),
+                  SizedBox(height: 10.h),
+                  Divider(height: 1, color: Theme.of(context).primaryColor),
+                  SizedBox(height: 10.h),
+                  singleItemFees(context, ref.read(detailsProvider).totalAmount.toString(), 'Total'),
+                  SizedBox(height: 20.h),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          child: const Text('Close'),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        OnProcessButtonWidget(
+                          height: 45,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 20.h),
+                          borderRadius: BorderRadius.circular(16),
+                          child: AutoSizeText('Go to Payment', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
+                          onTap: () async {
+                            return true;
+                          },
+                          onDone: (value) {
+                            if (value == true) {
+                              // log("amount ${detailsVilaProvider.totalAmount()}");
+                              Navigator.pushNamed(context, RouteName.paymentScreen, arguments: detailsVilaProvider.details?.id);
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Row singleItemFees(BuildContext context,String? price , String? title, {bool fromTax = false}) {
+    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      AutoSizeText(
+        title ?? '',
+        style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+      ),
+      AutoSizeText(
+        fromTax ? price ?? '0' : "\$${price ?? '\$0'}",
+        style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
+      ),
+    ]);
   }
 }
 

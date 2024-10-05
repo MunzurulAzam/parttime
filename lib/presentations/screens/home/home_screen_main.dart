@@ -72,6 +72,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                     color: AppColors.kPrimaryColor,
                   ),
                   child: CustomTextField(
+                    textStyle: TextStyle(color: AppColors.kWhiteColor, fontSize: 16.sp),
                     controller: searchController,
                     onChanged: (value) {
                       setState(() {
@@ -79,7 +80,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                       });
                     },
                     suffixIcon: IconButton(
-                      icon: Icon(Icons.clear, color: AppColors.kWhiteColor),
+                      icon: const Icon(Icons.clear, color: AppColors.kWhiteColor),
                       onPressed: () {
                         searchController.clear();
                         setState(() {
@@ -87,7 +88,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                         });
                       },
                     ),
-                    hint: 'city, airport, or hotel',
+                    hint: 'Search by location or hotel',
                     fillColor: AppColors.kPrimaryColor,
                     color: AppColors.kPrimaryColor,
                     horizontalPadding: 25.w,
