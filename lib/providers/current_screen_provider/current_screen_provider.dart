@@ -104,18 +104,14 @@ class HomeScreenProvider extends ChangeNotifier {
   }
 
   // Method to remove villa from favorites
-  void removeVillaFromFavorites(VillaModel villa, BuildContext context)async {
+  void removeVillaFromFavorites(VillaModel villa, BuildContext context) {
     // Mark the villa as not a favorite
     villa.isFavourite = false;
 
 
     // Optionally: Update Firestore or any other backend
-    await FirebaseFirestore.instance.collection(AllFirebaseCollections.favouriteVillasCollection)
-        .doc(villa.id)
-        .delete();
-
-    // Update the is_favourite field in the all_villas collection
-    await FirebaseFirestore.instance.collection(AllFirebaseCollections.allVillasCollection)
+    FirebaseFirestore.instance
+        .collection('all_villas')
         .doc(villa.id)
         .update({'is_favourite': false});
 
