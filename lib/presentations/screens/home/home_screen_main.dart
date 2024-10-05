@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/data/models/home/villa_model.dart';
+import 'package:hotel_management/data/models/home/villa_model.dart';
 import 'package:hotel_management/presentations/screens/home/widgets/carosole_slider.dart';
 import 'package:hotel_management/presentations/widgets/custom_text_field.dart';
 import 'package:hotel_management/presentations/widgets/on_process_button.dart';
@@ -75,7 +76,6 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                     color: AppColors.kPrimaryColor,
                   ),
                   child: CustomTextField(
-                    textStyle: TextStyle(color: AppColors.kWhiteColor, fontSize: 16.sp),
                     controller: searchController,
                     onChanged: (value) {
                       setState(() {
@@ -83,7 +83,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                       });
                     },
                     suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear, color: AppColors.kWhiteColor),
+                      icon: Icon(Icons.clear, color: AppColors.kWhiteColor),
                       onPressed: () {
                         searchController.clear();
                         setState(() {
@@ -91,7 +91,7 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                         });
                       },
                     ),
-                    hint: 'Search by location or hotel',
+                    hint: 'city, airport, or hotel',
                     fillColor: AppColors.kPrimaryColor,
                     color: AppColors.kPrimaryColor,
                     horizontalPadding: 25.w,
