@@ -32,6 +32,9 @@ class PaymentScreen extends ConsumerStatefulWidget {
 
 class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
 
   @override
   void initState() {
@@ -40,8 +43,11 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   }
 
 
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
   bool useGlassMorphism = false;
   String cardNumber = '';
   String expiryDate = '';
@@ -268,10 +274,13 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             dayCount: "${ref.read(detailsProvider).dayCount ?? 0}",
             villaName: ref.read(detailsProvider).details?.title ?? '',
             villaLocation: ref.read(detailsProvider).details?.location ?? '',
+<<<<<<< HEAD
 =======
             totalAmount: 30,
             context: context,
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
           );
 
       if (success == true) {

@@ -27,8 +27,11 @@ class PaymentProvider with ChangeNotifier {
     required String dayCount,
     required String villaName,
     required String villaLocation,
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
   }) async {
 
     log("hit server");

@@ -32,8 +32,11 @@ class VillaDetailsModel {
   final String? discount;
   final String? coupon;
   final String? location;
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
 
   VillaDetailsModel({
     required this.adults,
@@ -69,8 +72,11 @@ class VillaDetailsModel {
     this.discount,
     this.coupon,
     this.location,
+<<<<<<< HEAD
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
+=======
+>>>>>>> 8e2bbe7 (booking design updated)
   });
 
   factory VillaDetailsModel.fromFirestore(Map<String, dynamic> data) {
