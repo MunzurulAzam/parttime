@@ -24,6 +24,9 @@ class ProductDetailsProvider extends ChangeNotifier {
 
   int? get dayCount => _dayCount;
 
+  double? _taxFeeTotalAmount;
+  double? get taxFeeTotalAmount => _taxFeeTotalAmount;
+
   DateTime? _startDate;
 
   DateTime? get startDate => _startDate;
@@ -67,24 +70,28 @@ class ProductDetailsProvider extends ChangeNotifier {
   void getTotalAmount() {
     int dailyRent = int.parse(_details?.dailyRent ?? '0') * (dayCount ?? 0);
     int cleaningFees = int.parse(_details?.cleaningFees ?? '0') * (dayCount ?? 0);
+
     double tax = int.parse(_details?.tax ?? '0') / 100;
+    double dailyRentWithTax = dailyRent*tax;
+
+    _taxFeeTotalAmount = dailyRentWithTax;
 
     int serviceFees = int.parse(_details?.serviceFees ?? '0');
     int airportPicUp = int.parse(_details?.airportPickup ?? '0');
     int extraBeds = int.parse(_details?.extraBeds ?? '0');
 
 
-    int oneTimeFees = (dailyRent + cleaningFees + serviceFees + airportPicUp + extraBeds);
+    int oneTimeFees = (serviceFees + airportPicUp + extraBeds);
 
-    double withTax = (oneTimeFees * tax) + oneTimeFees;
+    double totalFees = dailyRentWithTax + cleaningFees + oneTimeFees;
 
     log(
       "daily rent $dailyRent cleaning fees $cleaningFees service fees $serviceFees "
-          "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $withTax",
+          "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $dailyRentWithTax",
     );
 
-
-    _totalAmount = withTax.toString();
+    _totalAmount = totalFees.toString();
+    notifyListeners();
   }
 
   // Function to show Date Range Picker

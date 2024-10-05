@@ -9,6 +9,7 @@ import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
+import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
 import 'package:hotel_management/presentations/screens/details_page/widgets/expanded_panel.dart';
 import 'package:hotel_management/presentations/screens/home/widgets/carosole_for_details.dart';
@@ -576,11 +577,11 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   singleItemFees(context, serviceFees, 'Service Fees',),
                   singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
                   singleItemFees(context, extraBeds, 'Extra Beds Fee'),
-                  singleItemFees(context, tax, 'Tax(%)',fromTax: true ),
+                  singleItemFees(context, "${detailsVilaProvider.taxFeeTotalAmount ?? 0}", 'Tax(%)',fromTax: true ),
                   SizedBox(height: 10.h),
                   Divider(height: 1, color: Theme.of(context).primaryColor),
                   SizedBox(height: 10.h),
-                  singleItemFees(context, ref.read(detailsProvider).totalAmount.toString(), 'Total'),
+                  singleItemFees(context, double.parse(ref.read(detailsProvider).totalAmount ?? '0').toStringAsFixed(2), 'Total'),
                   SizedBox(height: 20.h),
                   Expanded(
                     child: Row(
@@ -624,7 +625,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
         style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
       ),
       AutoSizeText(
-        fromTax ? price ?? '0' : "\$${price ?? '\$0'}",
+        "\$${price ?? '\$0'}",
         style: TextStyle(fontSize: 16.sp, color: Theme.of(context).primaryColor),
       ),
     ]);
