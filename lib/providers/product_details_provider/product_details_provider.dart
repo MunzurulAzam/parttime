@@ -34,6 +34,7 @@ class ProductDetailsProvider extends ChangeNotifier {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   String? _totalAmount;
 
   String? get totalAmount => _totalAmount;
@@ -57,11 +58,16 @@ class ProductDetailsProvider extends ChangeNotifier {
     try {
       DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc(id).get();
 =======
+=======
+  String? _totalAmount;
+  String? get totalAmount => _totalAmount;
+>>>>>>> e434bd3 (booking data stored to db)
 
-  Future<void> fetchVillaDetails() async {
+  Future<void> fetchVillaDetails(String id) async {
     _isLoading = true;
     notifyListeners();
     try {
+<<<<<<< HEAD
       DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
@@ -72,6 +78,9 @@ class ProductDetailsProvider extends ChangeNotifier {
     try {
       DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc('lDHPJ9VsKzUOlQUFczou').get();
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('villa_details').doc(id).get();
+>>>>>>> e434bd3 (booking data stored to db)
 
       if (doc.exists) {
         _details = VillaDetailsModel.fromFirestore(doc.data() as Map<String, dynamic>);
@@ -81,11 +90,15 @@ class ProductDetailsProvider extends ChangeNotifier {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         getTotalAmount();
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+        getTotalAmount();
+>>>>>>> e434bd3 (booking data stored to db)
         notifyListeners();
       } else {
         _isLoading = false;
@@ -104,6 +117,7 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   void getTotalAmount() {
@@ -183,6 +197,17 @@ class ProductDetailsProvider extends ChangeNotifier {
 
 /*List<Item> generateItems() {
 =======
+=======
+  void getTotalAmount() {
+    int dailyRent = int.parse(_details?.dailyRent ?? '0');
+    int cleaningFees = int.parse(_details?.cleaningFees ?? '0');
+    int serviceFees = int.parse(_details?.serviceFees ?? '0');
+    int airportPicUp = int.parse(_details?.airportPickup ?? '0');
+    int extraBeds = int.parse(_details?.extraBeds ?? '0');
+    _totalAmount = (dailyRent + cleaningFees + serviceFees + airportPicUp + extraBeds).toString();
+  }
+
+>>>>>>> e434bd3 (booking data stored to db)
   /*List<Item> generateItems() {
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======

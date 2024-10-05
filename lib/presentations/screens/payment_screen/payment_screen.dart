@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:hotel_management/data/models/details/villa_details.dart';
 import 'package:hotel_management/providers/payment/payment_provider.dart';
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
@@ -16,12 +17,18 @@ import 'package:hotel_management/providers/payment/payment_provider.dart';
 =======
 import 'package:hotel_management/providers/payment/payment_provider.dart';
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+import 'package:hotel_management/data/models/details/villa_details.dart';
+import 'package:hotel_management/providers/payment/payment_provider.dart';
+import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
+>>>>>>> e434bd3 (booking data stored to db)
 
 import '../../../core/config/routes/app_routes.dart';
 import '../../../core/utils/date_formatter.dart';
 import '../../widgets/on_process_button.dart';
 
 class PaymentScreen extends ConsumerStatefulWidget {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   final String? villaId;
@@ -33,6 +40,11 @@ class PaymentScreen extends ConsumerStatefulWidget {
 =======
   const PaymentScreen({super.key});
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+  final String? villaId;
+
+  const PaymentScreen({super.key, required this.villaId});
+>>>>>>> e434bd3 (booking data stored to db)
 
   @override
   ConsumerState<PaymentScreen> createState() => _PaymentScreenState();
@@ -44,6 +56,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 =======
 >>>>>>> 8e2bbe7 (booking design updated)
 
+<<<<<<< HEAD
   @override
   void initState() {
     log("villa id ${widget.villaId}");
@@ -56,6 +69,8 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 8e2bbe7 (booking design updated)
+=======
+>>>>>>> e434bd3 (booking data stored to db)
   bool useGlassMorphism = false;
   String cardNumber = '';
   String expiryDate = '';
@@ -68,11 +83,15 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
   Widget build(BuildContext context) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     final detailsController = ref.watch(detailsProvider);
 =======
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+    final detailsController = ref.watch(detailsProvider);
+>>>>>>> e434bd3 (booking data stored to db)
     return Scaffold(
       appBar: AppBar(
           title: const Text(
@@ -194,6 +213,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                           if (success == true) {
                             return true;
                           } else {
@@ -207,6 +227,11 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
                             return true;
                           }else{
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+                          if (success == true) {
+                            return true;
+                          } else {
+>>>>>>> e434bd3 (booking data stored to db)
                             return false;
                           }
                         },
@@ -274,6 +299,7 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
       String date = convertToYearMonth(expiryDate);
       String totalAmount = ref.read(detailsProvider).totalAmount ?? '0';
+<<<<<<< HEAD
 =======
 
       String date = convertToYearMonth(expiryDate);
@@ -282,11 +308,14 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
 
       String date = convertToYearMonth(expiryDate);
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+>>>>>>> e434bd3 (booking data stored to db)
 
       final success = await ref.read(paymentProvider).processPayment(
             cardNumber: cardNumber.split(' ').join(),
             expirationDate: date,
             cvv: cvvCode,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
             totalAmount: double.parse(totalAmount),
@@ -308,6 +337,11 @@ class _PaymentScreenState extends ConsumerState<PaymentScreen> {
             totalAmount: 30,
             context: context,
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+            totalAmount: double.parse(totalAmount),
+            context: context,
+            villaID: widget.villaId ?? '',
+>>>>>>> e434bd3 (booking data stored to db)
           );
 
       if (success == true) {

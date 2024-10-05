@@ -37,18 +37,29 @@ class DetailsScreen extends ConsumerStatefulWidget {
 =======
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
+import '../../../data/models/home/villa_model.dart';
+
 class DetailsScreen extends ConsumerStatefulWidget {
+<<<<<<< HEAD
   const DetailsScreen({super.key});
 >>>>>>> 90d7495 (villa details done and payment implemented)
 =======
   const DetailsScreen({super.key});
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+  VillaModel model;
+   DetailsScreen({super.key,required this.model});
+
+>>>>>>> e434bd3 (booking data stored to db)
 
   @override
   ConsumerState<DetailsScreen> createState() => _DetailsScreenState();
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
+
+
+
   @override
   void initState() {
     loadData();
@@ -59,6 +70,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
     Future(() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       ref.read(detailsProvider).fetchVillaDetails(widget.model.id ?? '');
 =======
       ref.read(detailsProvider).fetchVillaDetails();
@@ -66,6 +78,9 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 =======
       ref.read(detailsProvider).fetchVillaDetails();
 >>>>>>> 22ed79f (villa details done and payment implemented)
+=======
+      ref.read(detailsProvider).fetchVillaDetails(widget.model.id ?? '');
+>>>>>>> e434bd3 (booking data stored to db)
     });
   }
 
@@ -905,7 +920,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   },
                   onDone: (value) {
                     if (value == true) {
-                      Navigator.pushNamed(context, RouteName.paymentScreen);
+                      // log("amount ${detailsVilaProvider.totalAmount()}");
+                      Navigator.pushNamed(context, RouteName.paymentScreen,arguments: detailsVilaProvider.details?.id);
                     }
                   },
                 )
