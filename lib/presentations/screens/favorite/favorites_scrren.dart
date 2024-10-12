@@ -43,6 +43,7 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            10.verticalSpace,
             if (provider.isLoadingValue) ...[
               const Center(child: CircularProgressIndicator())
             ] else if (provider.favouriteListValue.isEmpty) ...[
@@ -62,6 +63,7 @@ class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
                   itemCount: provider.favouriteListValue.isEmpty ? 0 : provider.favouriteListValue.length,
                   itemBuilder: (context, index) {
                     return InkWell(
+                      overlayColor: WidgetStateProperty.all(Colors.transparent), 
                       onTap: (){
                         Navigator.pushNamed(context, RouteName.detailsScreen,arguments: provider.favouriteListValue[index]);
                       },
