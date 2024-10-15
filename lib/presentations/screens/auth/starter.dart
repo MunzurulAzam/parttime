@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,6 @@ class StarterScreen extends ConsumerStatefulWidget {
 }
 
 class _TripScreensState extends ConsumerState<StarterScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -32,33 +32,43 @@ class _TripScreensState extends ConsumerState<StarterScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              AppImages.bcImage,
+              AppImages.backInage,
               fit: BoxFit.cover,
             ),
           ),
           Column(
             children: [
-              300.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      'Premier Resort Rentals',
-                      style: TextStyle(
-                        fontSize: 24.sp,
-                        color: AppColors.kPrimaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
+              315.verticalSpace,
+              CachedNetworkImage(
+                imageUrl: 'https://i0.wp.com/premiervillarental.com/wp-content/uploads/2023/01/premier_villa_rentals.png?w=960&ssl=1',
+                errorWidget: (context, url, error) {
+                  return Container(
+                    color: AppColors.kGrayIconColor,
+                  );
+                },
               ),
-              200.verticalSpace,
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+
+              //     Align(
+              //       alignment: Alignment.center,
+              //       child: AutoSizeText(
+              //         'Premier Resort Rentals',
+              //         style: TextStyle(
+              //           fontSize: 24.sp,
+              //           color: AppColors.kPrimaryColor,
+              //           fontWeight: FontWeight.bold,
+              //         ),
+              //         overflow: TextOverflow.ellipsis,
+              //         maxLines: 1,
+              //         textAlign: TextAlign.center,
+              //       ),
+              //     ),
+              //   ],
+              // ),
+
+              180.verticalSpace,
               OnProcessButtonWidget(
                 onDone: (_) {
                   Navigator.pushNamed(context, RouteName.signUp);

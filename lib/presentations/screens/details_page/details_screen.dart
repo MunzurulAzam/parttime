@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
@@ -123,9 +124,11 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Row(
                                 children: [
-                                  AutoSizeText(detailsVilaProvider.details?.title ?? '', style: TextStyle(fontSize: 20.sp, color: Theme.of(context).primaryColor)),
+                                  AutoSizeText(detailsVilaProvider.details?.title ?? '',
+                                      style: TextStyle(fontSize: 20.sp, color: Theme.of(context).primaryColor)),
                                   const Spacer(),
-                                  AutoSizeText(detailsVilaProvider.details?.review ?? '0.0', style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor)),
+                                  AutoSizeText(detailsVilaProvider.details?.review ?? '0.0',
+                                      style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor)),
                                   5.horizontalSpace,
                                   Icon(Icons.star, color: Theme.of(context).primaryColor, size: 14.sp),
                                 ],
@@ -197,7 +200,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
                             Text(
                               'Rent Info',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 10),
 
@@ -221,7 +227,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             ),
                             Text(
                               'Extra',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 10),
 
@@ -241,7 +250,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
                             Text(
                               'Room Info',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 10),
 
@@ -277,7 +289,10 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
                             Text(
                               'Top Amenities',
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(fontSize: 16.w, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
                             ),
                             SizedBox(height: 10),
 
@@ -287,51 +302,71 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.kitchIcon,
                               title: 'Kitchen',
                               value: detailsVilaProvider.details?.amKitchen == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.wifiIcon,
                               title: 'Wifi',
                               value: detailsVilaProvider.details?.amWifi == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.workShop,
                               title: 'Dedicated Workspace',
                               value: detailsVilaProvider.details?.amDedicatedWorkspace == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.parking,
                               title: 'Free parking on premises',
                               value: detailsVilaProvider.details?.amFreeParking == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.pool,
                               title: 'Pool',
                               value: detailsVilaProvider.details?.amPool == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.bathtub,
                               title: 'Private hot hub',
                               value: detailsVilaProvider.details?.amPrivateHotHub == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.pets,
                               title: 'Pets Allowed',
                               value: detailsVilaProvider.details?.amPetAllowed == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.tvIcon,
                               title: 'Tv',
                               value: detailsVilaProvider.details?.amTv == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.washer,
                               title: 'Washer',
                               value: detailsVilaProvider.details?.amWasher == true ? 'Yes' : 'No',
                             ),
 
                             SingleItem(
+                              isSvg: true,
+                              svgUrl: AppIcons.dryer,
                               title: 'Dryer',
                               value: detailsVilaProvider.details?.amDryer == true ? 'Yes' : 'No',
                             ),
@@ -410,7 +445,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       borderRadius: BorderRadius.zero,
                       child: AutoSizeText('Continue', style: TextStyle(fontSize: 16.sp, color: Theme.of(context).scaffoldBackgroundColor)),
                       onTap: () async {
-                        if(detailsVilaProvider.startDate == null) {
+                        if (detailsVilaProvider.startDate == null) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Please select date'),
@@ -526,7 +561,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                           ),
                         ],
                       ),
-
                       SizedBox(height: 8.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -571,10 +605,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                     ],
                   ),
                   SizedBox(height: 10.h),
-                  
-                  singleItemFees(context, serviceFees, 'Service Fees',),
+                  singleItemFees(
+                    context,
+                    serviceFees,
+                    'Service Fees',
+                  ),
                   singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
                   singleItemFees(context, extraBeds, 'Extra Beds Fee'),
+                  singleItemFees(context, "${detailsVilaProvider.taxFeeTotalAmount ?? 0}", 'Tax(%)', fromTax: true),
                   singleItemFees(context, detailsVilaProvider.taxFeeTotalAmount?.toStringAsFixed(2) ?? '0', 'Tax(%)',fromTax: true ),
                   SizedBox(height: 10.h),
                   Divider(height: 1, color: Theme.of(context).primaryColor),
@@ -616,7 +654,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
     );
   }
 
-  Row singleItemFees(BuildContext context,String? price , String? title, {bool fromTax = false}) {
+  Row singleItemFees(BuildContext context, String? price, String? title, {bool fromTax = false}) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       AutoSizeText(
         title ?? '',
@@ -633,11 +671,15 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 class SingleItem extends StatelessWidget {
   final String? title;
   final String? value;
+  final bool isSvg;
+  final String? svgUrl;
 
   const SingleItem({
     this.title,
     this.value,
     super.key,
+    this.isSvg = false,
+    this.svgUrl,
   });
 
   @override
@@ -648,12 +690,25 @@ class SingleItem extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align texts at the start and end
           children: [
-            Text(
-              title ?? '',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    fontSize: 14.w,
-                    color: Theme.of(context).primaryColor,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                if (isSvg == true)
+                  SvgPicture.asset(
+                    svgUrl ?? '',
+                    width: 20.w,
+                    height: 20.h,
                   ),
+                  if(isSvg == true)
+                  5.horizontalSpace,
+                Text(
+                  title ?? '',
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontSize: 14.w,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                ),
+              ],
             ),
             Text(
               value ?? '',

@@ -72,14 +72,14 @@ class BottomNavBar extends StatelessWidget {
               // ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite,
-                  color: selectedIndex == 3 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
+                  color: selectedIndex == 2 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
                 ),
                 label: 'Favourite',
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.person,
-                  color: selectedIndex == 4 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
+                  color: selectedIndex == 3 ? AppColors.kWhiteColor : AppColors.kWhiteColor.withOpacity(0.4),
                 ),
                 label: 'Profile',
               ),
