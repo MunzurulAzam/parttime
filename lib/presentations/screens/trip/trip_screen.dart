@@ -76,7 +76,7 @@ class _TripScreensState extends ConsumerState<TripScreens> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    booking['user_name'],
+                                    booking['user_name'] ?? 'Guest',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16.sp,

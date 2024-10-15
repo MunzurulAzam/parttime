@@ -426,7 +426,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                           serviceFees: detailsVilaProvider.details?.serviceFees ?? '0',
                           airportPickup: detailsVilaProvider.details?.airportPickup ?? '0',
                           extraBeds: detailsVilaProvider.details?.extraBeds ?? '0',
-                          tax: detailsVilaProvider.details?.tax ?? '0',
+                          tax: double.parse(detailsVilaProvider.details?.tax ?? '0').toStringAsFixed(2),
                           detailsVilaProvider: detailsVilaProvider,
                         );
                       },
@@ -575,7 +575,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   singleItemFees(context, serviceFees, 'Service Fees',),
                   singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
                   singleItemFees(context, extraBeds, 'Extra Beds Fee'),
-                  singleItemFees(context, "${detailsVilaProvider.taxFeeTotalAmount ?? 0}", 'Tax(%)',fromTax: true ),
+                  singleItemFees(context, detailsVilaProvider.taxFeeTotalAmount?.toStringAsFixed(2) ?? '0', 'Tax(%)',fromTax: true ),
                   SizedBox(height: 10.h),
                   Divider(height: 1, color: Theme.of(context).primaryColor),
                   SizedBox(height: 10.h),
