@@ -202,11 +202,12 @@ class _HomeScreensState extends ConsumerState<HomeScreens> {
                   ),
                   Positioned(
                     bottom: 30.h,
-                    left: 34.w,
-                    right: 0,
-                    child: AutoSizeText(
-                      homeProvider.topVillaList[index].location ?? '',
-                      style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor, fontWeight: FontWeight.w700),
+                    left: 10.w,
+                    child: Center(
+                      child: AutoSizeText(
+                        homeProvider.topVillaList[index].location ?? '',
+                        style: TextStyle(fontSize: 18.sp, color: AppColors.kWhiteColor, fontWeight: FontWeight.w700),
+                      ),
                     ),
                   ),
                 ],
