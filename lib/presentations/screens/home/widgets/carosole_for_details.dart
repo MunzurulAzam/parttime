@@ -46,7 +46,7 @@ class CarosoleforDetails extends ConsumerWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.r)),
                         image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),

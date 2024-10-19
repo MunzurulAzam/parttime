@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hotel_management/core/config/routes/app_routes.dart';
 import 'package:hotel_management/core/constants/assets/app_icons.dart';
 import 'package:hotel_management/core/constants/colors/app_colors.dart';
+import 'package:hotel_management/core/utils/size_config.dart';
 import 'package:hotel_management/presentations/screens/details_page/widgets/expanded_panel.dart';
 import 'package:hotel_management/presentations/screens/home/widgets/carosole_for_details.dart';
 import 'package:hotel_management/presentations/widgets/custom_divider_bar.dart';
@@ -63,13 +64,14 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
+                            getVerticalSpace(20.h),
                             Stack(
                               children: [
                                 const CarosoleforDetails(
                                   dotIndicator: false,
                                 ),
                                 Positioned(
-                                  top: 25.h,
+                                  top: 20.h,
                                   left: 5.w,
                                   child: OnProcessButtonWidget(
                                     backgroundColor: Colors.white,
@@ -83,7 +85,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: 25.h,
+                                  top: 20.h,
                                   right: 5.w,
                                   child: OnProcessButtonWidget(
                                     onTap: () {
@@ -104,22 +106,22 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     ),
                                   ),
                                 ),
-                                Positioned(
-                                  bottom: 25.h,
-                                  right: 25.w,
-                                  child: OnProcessButtonWidget(
-                                    backgroundColor: Colors.black,
-                                    contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                    borderRadius: BorderRadius.circular(30.r),
-                                    child: Icon(
-                                      Icons.search_rounded,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                  ),
-                                ),
+                                // Positioned(
+                                //   bottom: 25.h,
+                                //   right: 25.w,
+                                //   child: OnProcessButtonWidget(
+                                //     backgroundColor: Colors.black,
+                                //     contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
+                                //     borderRadius: BorderRadius.circular(30.r),
+                                //     child: Icon(
+                                //       Icons.search_rounded,
+                                //       color: Theme.of(context).primaryColor,
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
-                            2.verticalSpace,
+                            5.verticalSpace,
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Row(
