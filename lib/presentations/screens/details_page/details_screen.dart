@@ -696,7 +696,7 @@ class SingleItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 if (isSvg == true)
-                  SvgPicture.asset(
+                  Image.asset(
                     svgUrl ?? '',
                     width: 20.w,
                     height: 20.h,
