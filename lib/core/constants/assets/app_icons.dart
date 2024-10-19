@@ -8,7 +8,7 @@ class AppIcons {
   static String get facebookIcon => 'facebook'.svg;
   static String get googleIcon => 'gmailIcon'.svg;
   static String get kitchIcon => 'cutlery'.png;
-  static String get wifiIcon => 'wifi'.png;
+  static String get wifiIcon => 'wifi2'.png;
   static String get workShop => 'working-hours'.png;
   static String get parking => 'parking-area'.png;
   static String get pool => 'pool'.png;
