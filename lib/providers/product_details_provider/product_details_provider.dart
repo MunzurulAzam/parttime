@@ -25,6 +25,7 @@ class ProductDetailsProvider extends ChangeNotifier {
   int? get dayCount => _dayCount;
 
   double? _taxFeeTotalAmount;
+
   double? get taxFeeTotalAmount => _taxFeeTotalAmount;
 
   DateTime? _startDate;
@@ -72,7 +73,7 @@ class ProductDetailsProvider extends ChangeNotifier {
     int cleaningFees = int.parse(_details?.cleaningFees ?? '0') * (dayCount ?? 0);
 
     double tax = int.parse(_details?.tax ?? '0') / 100;
-    double dailyRentWithTax = dailyRent*tax;
+    double dailyRentWithTax = dailyRent * tax;
 
     _taxFeeTotalAmount = dailyRentWithTax;
 
@@ -80,14 +81,13 @@ class ProductDetailsProvider extends ChangeNotifier {
     int airportPicUp = int.parse(_details?.airportPickup ?? '0');
     int extraBeds = int.parse(_details?.extraBeds ?? '0');
 
-
     int oneTimeFees = (serviceFees + airportPicUp + extraBeds);
 
     double totalFees = dailyRentWithTax + cleaningFees + oneTimeFees;
 
     log(
       "daily rent $dailyRent cleaning fees $cleaningFees service fees $serviceFees "
-          "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $dailyRentWithTax",
+      "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $dailyRentWithTax",
     );
 
     _totalAmount = totalFees.toString();
@@ -140,7 +140,7 @@ class ProductDetailsProvider extends ChangeNotifier {
   // }
 
   // Function to format the date and time
-  String formatDateTime(DateTime date,TimeOfDay time, BuildContext context) {
+  String formatDateTime(DateTime date, TimeOfDay time, BuildContext context) {
     final formattedDate = '${date.day}/${date.month}/${date.year}';
 
     final formattedTime = _fixedTime.format(context); // Always show 12 PM

@@ -26,7 +26,10 @@ class PaymentProvider with ChangeNotifier {
   }) async {
 
     log("hit server");
-    final url = Uri.parse('https://authorize-net-payment-fastapi.onrender.com/process-authorizenet-payment');
+    // final url = Uri.parse('https://authorize-net-payment-fastapi.onrender.com/process-authorizenet-payment');
+    final url = Uri.parse('https://authorize-net-payment-fast-api.vercel.app/process-authorizenet-payment');
+    log("hit server $url");
+
     final headers = {
       'accept': 'application/json',
       'Content-Type': 'application/json',
