@@ -16,6 +16,7 @@ class EditProfileScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
 }
+
 final _formKey = GlobalKey<FormState>();
 
 class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
@@ -25,7 +26,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
 
   @override
   void initState() {
-_loadUserData();
+    _loadUserData();
     super.initState();
   }
 
@@ -42,20 +43,20 @@ _loadUserData();
   Future<void> _updateProfile() async {
     // if (_formKey.currentState!.validate()) {  //!_____________________________need if has validation
 
-      final auth = ref.watch(authProvider);
+    final auth = ref.watch(authProvider);
 
+    await auth.updateUserProfile(
+      name: _nameController.text.trim(),
+      email: _emailController.text.trim(),
+      phone: _phoneController.text.trim(),
+    );
 
-      await auth.updateUserProfile(
-        name: _nameController.text.trim(),
-        email: _emailController.text.trim(),
-        phone: _phoneController.text.trim(),
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile updated successfully')),
-      );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Profile updated successfully')),
+    );
     // }
   }
+
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
@@ -73,7 +74,7 @@ _loadUserData();
         ),
         body: Form(
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 20.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               children: [
                 5.verticalSpace,
@@ -84,21 +85,21 @@ _loadUserData();
                     cornerRadius: 50.r,
                     totalWidth: 90.w,
                     color: AppColors.dark10,
-                    image:  NetworkImage(
-                      user?.photoURL ??'',
+                    image: NetworkImage(
+                      user?.photoURL ?? '',
                     ),
                   ),
                 ),
                 10.verticalSpace,
                 AutoSizeText(
-                  user?.displayName ??'',
+                  user?.displayName ?? '',
                   style: TextStyle(fontSize: 20.sp, color: AppColors.kPrimaryColor),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 2.verticalSpace,
                 AutoSizeText(
-                 user?.email ?? '',
+                  user?.email ?? '',
                   style: TextStyle(fontSize: 14.sp, color: AppColors.kPrimaryColor),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -106,7 +107,7 @@ _loadUserData();
                 20.verticalSpace,
                 Align(alignment: Alignment.centerLeft, child: AutoSizeText('Name', style: TextStyle(fontSize: 16.sp, color: AppColors.kPrimaryColor))),
                 5.verticalSpace,
-                 CustomTextFormField(
+                CustomTextFormField(
                   textEditingController: _nameController,
                   fillColor: AppColors.dark10.withOpacity(0.3),
                   prefixIcon: const Icon(
@@ -126,10 +127,9 @@ _loadUserData();
                   ),
                 ),
                 10.verticalSpace,
-            
                 Align(alignment: Alignment.centerLeft, child: AutoSizeText('Email', style: TextStyle(fontSize: 16.sp, color: AppColors.kPrimaryColor))),
                 5.verticalSpace,
-                 CustomTextFormField(
+                CustomTextFormField(
                   textEditingController: _emailController,
                   fillColor: AppColors.dark10.withOpacity(0.3),
                   prefixIcon: const Icon(
@@ -149,10 +149,9 @@ _loadUserData();
                   ),
                 ),
                 10.verticalSpace,
-            
                 Align(alignment: Alignment.centerLeft, child: AutoSizeText('Phone Number', style: TextStyle(fontSize: 16.sp, color: AppColors.kPrimaryColor))),
                 5.verticalSpace,
-                 CustomTextFormField(
+                CustomTextFormField(
                   textEditingController: _phoneController,
                   fillColor: AppColors.dark10.withOpacity(0.3),
                   prefixIcon: const Icon(
@@ -173,11 +172,11 @@ _loadUserData();
                 ),
                 20.verticalSpace,
                 OnProcessButtonWidget(
-                  onTap: () async{
-                   await _updateProfile();
+                  onTap: () async {
+                    await _updateProfile();
                     return null;
                   },
-                  contentPadding: EdgeInsets.symmetric( vertical: 10.0.h),
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.0.h),
                   child: AutoSizeText(
                     'Update',
                     style: TextStyle(fontSize: 16.sp, color: AppColors.kWhiteColor),

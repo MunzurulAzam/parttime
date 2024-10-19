@@ -6,4 +6,5 @@ class AppImages {
   static String get logo => 'logo'.png;
   static String get bcImage => 'bcImage2'.jpg;
   static String get backInage => 'back'.jpg;
+  static String get bg => 'bg'.jpeg;
 }

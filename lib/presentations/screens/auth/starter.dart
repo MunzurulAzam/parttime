@@ -32,20 +32,26 @@ class _TripScreensState extends ConsumerState<StarterScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              AppImages.backInage,
+              AppImages.bg,
               fit: BoxFit.cover,
             ),
           ),
           Column(
             children: [
-              315.verticalSpace,
-              CachedNetworkImage(
-                imageUrl: 'https://i0.wp.com/premiervillarental.com/wp-content/uploads/2023/01/premier_villa_rentals.png?w=960&ssl=1',
-                errorWidget: (context, url, error) {
-                  return Container(
-                    color: AppColors.kGrayIconColor,
-                  );
-                },
+              100.verticalSpace,
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+
+                child: Image.asset('assets/images/logo2.png'),
+
+                // CachedNetworkImage(
+                //   imageUrl: 'https://i0.wp.com/premiervillarental.com/wp-content/uploads/2023/01/premier_villa_rentals.png?w=960&ssl=1',
+                //   errorWidget: (context, url, error) {
+                //     return Container(
+                //       color: AppColors.kGrayIconColor,
+                //     );
+                //   },
+                // ),
               ),
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +74,7 @@ class _TripScreensState extends ConsumerState<StarterScreen> {
               //   ],
               // ),
 
-              180.verticalSpace,
+              Spacer(),
               OnProcessButtonWidget(
                 onDone: (_) {
                   Navigator.pushNamed(context, RouteName.signUp);
@@ -98,6 +104,9 @@ class _TripScreensState extends ConsumerState<StarterScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
+
+              100.verticalSpace,
+
             ],
           ),
         ],
