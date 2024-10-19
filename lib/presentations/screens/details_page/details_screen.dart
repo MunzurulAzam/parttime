@@ -614,7 +614,6 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                   ),
                   singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
                   singleItemFees(context, extraBeds, 'Extra Beds Fee'),
-                  singleItemFees(context, "${detailsVilaProvider.taxFeeTotalAmount ?? 0}", 'Tax(%)', fromTax: true),
                   singleItemFees(context, detailsVilaProvider.taxFeeTotalAmount?.toStringAsFixed(2) ?? '0', 'Tax(%)',fromTax: true ),
                   SizedBox(height: 10.h),
                   Divider(height: 1, color: Theme.of(context).primaryColor),
