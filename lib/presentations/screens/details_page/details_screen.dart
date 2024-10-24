@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -18,6 +19,7 @@ import 'package:hotel_management/presentations/widgets/on_process_button.dart';
 import 'package:hotel_management/providers/current_screen_provider/current_screen_provider.dart';
 import 'package:hotel_management/providers/product_details_provider/product_details_provider.dart';
 
+import '../../../core/constants/assets/app_images.dart';
 import '../../../data/models/home/villa_model.dart';
 
 class DetailsScreen extends ConsumerStatefulWidget {
@@ -30,6 +32,8 @@ class DetailsScreen extends ConsumerStatefulWidget {
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
+
+  int selectedIndex = 0;
   @override
   void initState() {
     loadData();
@@ -64,14 +68,53 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            getVerticalSpace(20.h),
+
                             Stack(
                               children: [
-                                const CarosoleforDetails(
-                                  dotIndicator: false,
-                                ),
+                                Container(
+                                  height: 250.h,
+                                  width: double.infinity,
+                                  // Adjust your borderRadius utility here
+                                    child: CachedNetworkImage(
+                                      imageUrl: detailsVilaProvider.details?.images[selectedIndex] ?? '',
+                                      fit: BoxFit.contain,
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        width: 1000,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                          image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      placeholder: (context, url) => Container(
+                                        width: 1000,
+                                        height: 300.h,
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                            color: AppColors.kDividerColor,
+                                            image: DecorationImage(
+                                              image: AssetImage(AppImages.placeholder),
+                                              fit: BoxFit.cover,
+                                            )
+                                        ),
+                                      ),
+                                      errorWidget: (context, url, error) => Container(
+                                        width: 1000,
+                                        height: 300.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                                          color: AppColors.kDividerColor,
+                                        ),
+                                      ),
+                                    )
+
+
+                                ) ,
+
                                 Positioned(
-                                  top: 20.h,
+                                  top: 35.h,
                                   left: 5.w,
                                   child: OnProcessButtonWidget(
                                     backgroundColor: Colors.white,
@@ -85,7 +128,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                   ),
                                 ),
                                 Positioned(
-                                  top: 20.h,
+                                  top: 35.h,
                                   right: 5.w,
                                   child: OnProcessButtonWidget(
                                     onTap: () {
@@ -106,22 +149,44 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                     ),
                                   ),
                                 ),
-                                // Positioned(
-                                //   bottom: 25.h,
-                                //   right: 25.w,
-                                //   child: OnProcessButtonWidget(
-                                //     backgroundColor: Colors.black,
-                                //     contentPadding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 5.h),
-                                //     borderRadius: BorderRadius.circular(30.r),
-                                //     child: Icon(
-                                //       Icons.search_rounded,
-                                //       color: Theme.of(context).primaryColor,
-                                //     ),
-                                //   ),
-                                // ),
+
                               ],
                             ),
-                            5.verticalSpace,
+                            10.verticalSpace,
+                            SizedBox(
+                              height: 80,
+                              width: 400,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: detailsVilaProvider.details?.images.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedIndex = index;
+                                      });
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.symmetric(horizontal: 5),
+                                      width: 80,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: selectedIndex == index ? Colors.blue : Colors.grey,
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: Image.network(
+                                        detailsVilaProvider.details!.images[index],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            10.verticalSpace,
+
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               child: Row(
