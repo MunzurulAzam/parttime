@@ -21,6 +21,7 @@ import 'package:hotel_management/providers/product_details_provider/product_deta
 
 import '../../../core/constants/assets/app_images.dart';
 import '../../../data/models/home/villa_model.dart';
+import 'package:flutter_date_pickers/flutter_date_pickers.dart' as dp;
 
 class DetailsScreen extends ConsumerStatefulWidget {
   VillaModel model;
@@ -32,6 +33,15 @@ class DetailsScreen extends ConsumerStatefulWidget {
 }
 
 class _DetailsScreenState extends ConsumerState<DetailsScreen> {
+
+  DateTimeRange? selectedDateRange;
+  DateTime now = DateTime.now();
+
+  List<DateTime> disabledDates = [
+    DateTime(2024, 10, 28),
+    // Add more disabled dates here
+  ];
+
 
   int selectedIndex = 0;
   @override
@@ -71,7 +81,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
 
                             Stack(
                               children: [
-                                Container(
+                                SizedBox(
                                   height: 250.h,
                                   width: double.infinity,
                                   // Adjust your borderRadius utility here
@@ -167,13 +177,13 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                       });
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.symmetric(horizontal: 5),
+                                      margin: const EdgeInsets.symmetric(horizontal: 2),
                                       width: 80,
                                       height: 60,
                                       decoration: BoxDecoration(
                                         border: Border.all(
                                           color: selectedIndex == index ? Colors.blue : Colors.grey,
-                                          width: 2,
+                                          width: 1,
                                         ),
                                       ),
                                       child: Image.network(
@@ -236,6 +246,38 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                                       ),
                                     ],
                                   ),
+
+                               /*   Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: dp.RangePicker(
+                                      selectedPeriod: selectedDateRange != null
+                                          ? dp.DatePeriod(selectedDateRange!.start, selectedDateRange!.end)
+                                          : dp.DatePeriod(now, now.add(Duration(days: 1))),
+                                      firstDate: now,
+                                      lastDate: DateTime(2101),
+                                      onChanged: (dp.DatePeriod newPeriod) {
+                                        setState(() {
+                                          selectedDateRange = DateTimeRange(
+                                              start: newPeriod.start, end: newPeriod.end);
+                                        });
+                                      },
+                                      datePickerStyles: dp.DatePickerRangeStyles(
+                                        disabledDateStyle: const TextStyle(color: Colors.grey), // Grey-out disabled dates
+                                      ),
+                                      selectableDayPredicate: (date) {
+                                        return !disabledDates.contains(
+                                            DateTime(date.year, date.month, date.day)); // Disable specific dates
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                                    child: AutoSizeText(
+                                      "Selected booking date: \n${selectedDateRange}",
+                                      style: TextStyle(fontSize: 14.sp, color: Theme.of(context).primaryColor),
+                                    ),
+                                  ),
+                                  */
                                   15.verticalSpace,
                                   if (detailsVilaProvider.startDate != null && detailsVilaProvider.endDate != null)
                                     Padding(

@@ -118,26 +118,76 @@ class ProductDetailsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Function to show time pickers for start and end times
-  // Future<void> selectBookingTimes(BuildContext context) async {
-  //   final TimeOfDay? pickedStartTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: _startTime, // Default to 12 PM
-  //   );
-  //
-  //   if (pickedStartTime != null) {
-  //       _startTime = pickedStartTime;
-  //   }
-  //
-  //   final TimeOfDay? pickedEndTime = await showTimePicker(
-  //     context: context,
-  //     initialTime: _endTime, // Default to 12 PM
-  //   );
-  //
-  //   if (pickedEndTime != null) {
-  //       _endTime = pickedEndTime;
-  //   }
-  // }
+/*  Future<void> selectBookingDates(BuildContext context) async {
+    DateTime now = DateTime.now();
+
+    // List of dates to be disabled
+    List<DateTime> disabledDates = [
+      DateTime(2024, 10, 28),
+      // Add more disabled dates here
+    ];
+
+    final DateTimeRange? picked = await showDateRangePicker(
+      context: context,
+      initialDateRange: _startDate != null && _endDate != null
+          ? DateTimeRange(start: _startDate!, end: _endDate!)
+          : DateTimeRange(start: now, end: now.add(const Duration(days: 1))),
+      firstDate: now,
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null) {
+      // Validate the selected range
+      bool containsDisabledDate = false;
+
+      // Iterate through each date in the selected range and check for disabled dates
+      for (int i = 0; i <= picked.end.difference(picked.start).inDays; i++) {
+        DateTime currentDate = picked.start.add(Duration(days: i));
+
+        if (disabledDates.any((disabledDate) =>
+        disabledDate.year == currentDate.year &&
+            disabledDate.month == currentDate.month &&
+            disabledDate.day == currentDate.day)) {
+          containsDisabledDate = true;
+          break;
+        }
+      }
+
+      // If the selected range contains a disabled date, show a message and do not update
+      if (containsDisabledDate) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Invalid Date Range'),
+            content: Text('The selected date range contains one or more disabled dates. Please choose a different range.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return; // Do not proceed
+      }
+
+      // If no disabled dates are found, update the state
+      _startDate = picked.start;
+      _endDate = picked.end;
+      log("start date ${picked.start}");
+      log("end date ${picked.end}");
+      _dayCount = picked.end.difference(picked.start).inDays;
+      log("day count $_dayCount");
+      getTotalAmount();
+
+      notifyListeners();
+    }
+    notifyListeners();
+  }*/
+
+
+
+
 
   // Function to format the date and time
   String formatDateTime(DateTime date, TimeOfDay time, BuildContext context) {
@@ -150,47 +200,6 @@ class ProductDetailsProvider extends ChangeNotifier {
     return '$formattedDate $formattedTime';
   }
 
-/*List<Item> generateItems() {
-    return [
-      // Item(
-      //   headerValue: 'Additional Info ',
-      //   expandedValues: ['Max Guest', 'Adults', 'kids'],
-      //   endValues: ['10', '5', '8'],
-      // ),
-      // Item(
-      //   headerValue: 'Rent Info',
-      //   expandedValues: ['Daily Rent', 'Cleaning Fees', 'Service Fees', 'Extras', 'Airport pic up', 'Extra Beds'],
-      //   endValues: ['\$650', '\$80', '\$800', '\$0', '\$50', '\$100'],
-      // ),
-      Item(
-        headerValue: 'Room Info',
-        expandedValues: [
-          'Bed Rooms',
-          'Living Room',
-          'Kitchens',
-          'Bathrooms',
-          'Gym',
-        ],
-        endValues: [
-          details?.bedRoom ?? '0',
-          details?.livingRoom ?? '0',
-          details?.kitchen ?? '0',
-          details?.bathroom ?? '0',
-          details?.gym ?? '0',
-        ],
-      ),
-      Item(
-        headerValue: 'Top Amenities',
-        expandedValues: ['Kitchen', 'Wifi', 'Dedicated workspace', 'Free parking on premises', 'Pool', 'Private hot tub', 'Pets allowed', 'TV', 'Washer', 'Dryer'],
-        endValues: ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-'],
-      ),
-      // Item(
-      //   headerValue: 'Cancellation Policy',
-      //   expandedValues: ['We offer a complete refund for cancellations made 24 hours prior to the booking time',],
-      //   endValues: [''],
-      // ),
-    ];
-  }*/
 }
 
 class Item {
