@@ -11,7 +11,8 @@ class BookingProvider extends ChangeNotifier {
     try {
       final snapshot = await _firestore
           .collection('bookings')
-          .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser?.uid) // Filter by uid
+          .where('user_id', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+          .orderBy('created_at', descending: true)
           .get();
 
       bookings = snapshot.docs.map((doc) => doc.data() as Map<String, dynamic>).toList();

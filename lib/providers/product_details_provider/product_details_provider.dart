@@ -33,9 +33,29 @@ class ProductDetailsProvider extends ChangeNotifier {
   DateTime? get startDate => _startDate;
   DateTime? _endDate;
 
+  bool _airportPickup = false;
+  bool get airportPickup => _airportPickup;
+
+  bool _extraBed = false;
+  bool get extraBed => _extraBed;
+
+
+
   DateTime? get endDate => _endDate;
   final TimeOfDay _fixedTime = const TimeOfDay(hour: 12, minute: 0); // Fixed to 12 PM
   TimeOfDay get fixedTime => _fixedTime;
+
+
+  updateAirportPickup(bool value) {
+    _airportPickup = value;
+    notifyListeners();
+  }
+
+  updateExtraBed(bool value) {
+    _extraBed = value;
+    notifyListeners();
+  }
+
 
   Future<void> fetchVillaDetails(String id) async {
     _isLoading = true;
@@ -75,22 +95,21 @@ class ProductDetailsProvider extends ChangeNotifier {
     double tax = int.parse(_details?.tax ?? '0') / 100;
     double dailyRentWithTax = dailyRent * tax;
 
-    _taxFeeTotalAmount = dailyRentWithTax;
 
     int serviceFees = int.parse(_details?.serviceFees ?? '0');
-    int airportPicUp = int.parse(_details?.airportPickup ?? '0');
-    int extraBeds = int.parse(_details?.extraBeds ?? '0');
+    //extra bed
+    int airportPicUp = int.parse(_airportPickup == true ? (_details?.airportPickup ?? '0') : '0');
+    int extraBeds = int.parse(_extraBed ==true ? (_details?.extraBeds ?? '0') : '0');
+
+
 
     int oneTimeFees = (serviceFees + airportPicUp + extraBeds);
 
-    double totalFees = dailyRentWithTax + cleaningFees + oneTimeFees;
+    double totalFees = dailyRentWithTax + cleaningFees + oneTimeFees +dailyRent;
 
-    log(
-      "daily rent $dailyRent cleaning fees $cleaningFees service fees $serviceFees "
-      "airport pic up $airportPicUp extra beds $extraBeds tax $tax one time $oneTimeFees with tax $dailyRentWithTax",
-    );
 
-    _totalAmount = totalFees.toString();
+    _totalAmount =  totalFees.toString();
+    log("total amount $_totalAmount $totalFees");
     notifyListeners();
   }
 

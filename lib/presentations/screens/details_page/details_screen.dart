@@ -348,13 +348,91 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                               color: Theme.of(context).primaryColor,
                             ),
 
-                            SingleItem(
-                              title: 'Airport Pickup',
-                              value: "\$${detailsVilaProvider.details?.airportPickup ?? '\$100'}",
+
+                            ListTile(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align texts at the start and end
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5,right: 10),
+                                        width: 20.w,
+                                        height: 20.h,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Theme.of(context).primaryColor),
+                                        ),
+                                        child: Checkbox(
+                                            value: detailsVilaProvider.airportPickup, onChanged: (value) {
+                                          log("value ${value}");
+                                          detailsVilaProvider.updateAirportPickup(value!);
+
+                                        }),
+                                      ),
+
+                                      Text(
+                                        'Airport Pickup',
+                                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          fontSize: 14.w,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "\$${detailsVilaProvider.details?.airportPickup ?? '\$100'}",
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontSize: 14.w,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                            SingleItem(
-                              title: 'Extra Beds',
-                              value: "\$${detailsVilaProvider.details?.extraBeds ?? '\$100'}",
+
+                            ListTile(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align texts at the start and end
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 5,right: 10),
+                                        width: 20.w,
+                                        height: 20.h,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Theme.of(context).primaryColor),
+                                        ),
+                                        child: Checkbox(
+                                            value: detailsVilaProvider.extraBed, onChanged: (value) {
+                                              log("value ${value}");
+                                              detailsVilaProvider.updateExtraBed(value!);
+
+                                        }),
+                                      ),
+
+                                      Text(
+                                        'Extra Beds',
+                                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          fontSize: 14.w,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "\$${detailsVilaProvider.details?.extraBeds ?? '\$100'}",
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontSize: 14.w,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
 
                             Text(
@@ -568,7 +646,7 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                           dailyRent: detailsVilaProvider.details?.dailyRent ?? '0',
                           cleaningFees: detailsVilaProvider.details?.cleaningFees ?? '0',
                           serviceFees: detailsVilaProvider.details?.serviceFees ?? '0',
-                          airportPickup: detailsVilaProvider.details?.airportPickup ?? '0',
+                          airportPickup: detailsVilaProvider.details?.airportPickup ,
                           extraBeds: detailsVilaProvider.details?.extraBeds ?? '0',
                           tax: double.parse(detailsVilaProvider.details?.tax ?? '0').toStringAsFixed(2),
                           detailsVilaProvider: detailsVilaProvider,
@@ -719,8 +797,8 @@ class _DetailsScreenState extends ConsumerState<DetailsScreen> {
                     serviceFees,
                     'Service Fees',
                   ),
-                  singleItemFees(context, airportPickup, 'Airport Pickup Fee'),
-                  singleItemFees(context, extraBeds, 'Extra Beds Fee'),
+                  detailsVilaProvider.airportPickup == true ? singleItemFees(context, airportPickup, 'Airport Pickup Fee') : const SizedBox(),
+                  detailsVilaProvider.extraBed == true ? singleItemFees(context, extraBeds, 'Extra Beds Fee') : const SizedBox(),
                   singleItemFees(context, detailsVilaProvider.taxFeeTotalAmount?.toStringAsFixed(2) ?? '0', 'Tax(%)',fromTax: true ),
                   SizedBox(height: 10.h),
                   Divider(height: 1, color: Theme.of(context).primaryColor),
@@ -780,6 +858,7 @@ class SingleItem extends StatelessWidget {
   final String? title;
   final String? value;
   final bool isSvg;
+  final bool isExtra;
   final String? svgUrl;
 
   const SingleItem({
@@ -787,6 +866,7 @@ class SingleItem extends StatelessWidget {
     this.value,
     super.key,
     this.isSvg = false,
+    this.isExtra = false,
     this.svgUrl,
   });
 
@@ -809,6 +889,7 @@ class SingleItem extends StatelessWidget {
                   ),
                   if(isSvg == true)
                   5.horizontalSpace,
+
                 Text(
                   title ?? '',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
